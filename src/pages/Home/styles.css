@@ -1,0 +1,23 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  font-family: "Montserrat", sans-serif;
+}
+body {
+  background: #eee;
+  background-color: #fafdff;
+  background-color: #d4e3bd;
+background-image: url("https://www.transparenttextures.com/patterns/brick-wall-dark.png");
+  overflow-x: hidden;
+}
+
+.sidebarContainer {
+  width: 50%vw;
+  position: fixed;
+  top: 10%;
+  left: 0;
+  background-color: orange;
+}
