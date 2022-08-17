@@ -1,28 +1,32 @@
-import React from "react";
+// react components , hooks
+import React, { useState } from "react";
 
+// material ui components
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-function DisplayTip({ Tip }) {
-  const [isDisplayWholeTip, setIsDisplayWholeTip] = React.useState(false);
+function DisplayTip({ currTip }) {
+  const [isDisplayWholeTip, setIsDisplayWholeTip] = useState(false);
 
   return (
-    <Card sx={{ margin: 4 }} key={Tip.id}>
+    // just rendering a card component to display a tip every time
+
+    <Card sx={{ margin: 4 }} key={currTip.crimeId}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           <strong>Crime Type : </strong>
-          {Tip.crimeType}
+          {currTip.crimeType}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           <strong> Number of suspects : </strong>
-          {Tip.noOfCriminals}
+          {currTip.numberOfSuspects}
         </Typography>
         <Typography variant="body2">
           <strong>Crime location : </strong>
-          {Tip.locationName}
+          {currTip.city}
         </Typography>
 
         <>
@@ -49,7 +53,7 @@ function DisplayTip({ Tip }) {
               gutterBottom
             >
               <strong>Description : </strong>
-              {Tip.description}
+              {currTip.crimeDesc}
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               <strong> Have Any feedback : </strong>
