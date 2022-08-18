@@ -1,129 +1,243 @@
-// SPDX-License-Identifier: MIT
 pragma solidity >= 0.7.0 < 0.9.0;
 
-contract Crimes{
+contract CrimeReport{
 
-  struct Crime{
-    uint256 crimeId; // Unique Id Number for each crime
-    uint256 timeStamp; // TimeStamp in Unix / Epoch
+/* Array Of Feedback in another stuct not supported yet.
+    struct Feedback{
 
-    string crimeType; // Crime Type -> Murder/Theft/Robbery...etc
-    string crimeDesc; // Crime Description in detail
-    uint8 numberOfSuspects; // Number Of Suspects Seen
+        // Wallet Address who submitted Feedback
+         address feebdbackFrom;
 
-     string state; // State Name Where Crime Occured
-    string city; // City Name Where Crime Occured
+        // Feedback
+        string feedback;
 
-    // Geographical Coordinates
-    uint256 latitude; 
-    uint256 longitude; 
+        // Feedback Time
+        // uint256 timestamp;
+    }
 
-    // Is person known about whom the crime has been committed?
-    bool isVictimKnown;
-    string aboutVictim; // Information Of Victim
-    
-    bool isSuspectKnown; // Do you know who did the crime?
-    string aboutSuspect; // Information Of Suspect
-
-    // Case is active or closed [Active = true | Close = false]
-    bool isCaseActive;
-
-    uint32 crimeGenuinenessRating; // Genuineness Rating From Feedback Form By Users
-    uint32 nUsersWhoDidRating; // Number of users who did rating
-    
-    /*
-      For now mapping it seperatly.    
-      address addressOfUserAc; // Wallet Address of who reporting the crime
     */
 
-  }
+    struct MESSAGE{
+        string message;
+        string from;
+    }
 
-  Crime[] private crimes; // List Of All Crimes that reported
-  
-  /* To Show the list of each user's reported crime to their account
-     Key   -> crimeId
-     Value -> users's Address
-  */
-  //mapping(uint256 => address) reportedCrimeByUser;
+    struct Crime{
 
-  // Function to submit crime (Storing Crime Details)
-  function submitCrime(uint256 _timeStamp,
-                       string memory _city,
-                       uint256 _latitude,
-                       uint256 _longitude,
-                       string memory _crimeType,
-                       uint8 _numberOfSuspects,
-                       string memory _crimeDesc,
-                       bool _isVictimKnown,
-                       string memory _aboutVictim,
-                       bool _isSuspectKnown,
-                       string memory _aboutSuspect
-                      ) external
-  {
+        // Unique Id Number for each crime
+        uint256 crimeId;
 
-    // Mapping unique Crime Id With reporter Account
-   // reportedCrimeByUser[crimes.length] = msg.sender;
+        // Wallet Address who submitted crime details
+        address reporterWalletAddress;
 
-    Crime memory crime;
-    crime.crimeId = crimes.length;
-    crime.timeStamp = _timeStamp;
+        // TimeStamp in Unix / Epoch
+        uint256 timeStamp;
 
-    // Crime Details
-    crime.crimeType = _crimeType;
-    crime.crimeDesc = _crimeDesc;
-    crime.numberOfSuspects = _numberOfSuspects;
+        /*
+        // State Name Where Crime Occured
+        string state; 
 
-    // Crime Location
-    crime.city = _city;
-    crime.latitude = _latitude;
-    crime.longitude = _longitude;
+        // City Name Where Crime Occured
+        string city; 
 
-    crime.isVictimKnown = _isVictimKnown;
-    crime.aboutVictim = _aboutVictim;
-    crime.isSuspectKnown = _isSuspectKnown;
-    crime.aboutSuspect = _aboutSuspect;
-    crime.isCaseActive = true;
-    crime.crimeGenuinenessRating = 0;
-    crime.nUsersWhoDidRating = 0;
+        // Geographical Coordinates
+        string latitude; 
+        string longitude; 
+        */
 
-    // Adding New Crime Report 
-    crimes.push(crime);
-  }
+        string[] location;
 
-  // Function to add feedback of reported case.
-//   function addFeedback(uint32 _crimeId, string memory _feedback, uint32 _crimeGenuinenessRating) external {
+        // Crime Type -> Murder/Theft/Robbery...etc
+        string crimeType;
 
-//     uint32 _feedbackId = uint32(crimes[_crimeId].crimeFeedbacks.length);
-//     crimes[_crimeId].crimeFeedbacks.push(CrimeFeedback(_feedbackId,_feedback));
-//     crimes[_crimeId].crimeGenuinenessRating += _crimeGenuinenessRating;
-//     crimes[_crimeId].nUsersWhoDidRating += 1;
+        /* Questionnaire regarding crime type and mapping it to answer.
+           Question_Number -> Answer
+           mapping(uint32 => string) questionnaires;
+        */
+        
+        /*  Use This if Above Mapping doesn't work 
 
-//   }
+        // Questionnaire regarding crime type */
+        //string[] questionnaires;
 
-// Function to calculate Crime Genuineness
-function calculateGenuineness(uint currRating, uint ratingFromCurrUser, uint totalUsers) external pure returns(uint[] memory){
+        // Answers of Questionnaire.
+        string[] questionnaireAnswers;
 
-    uint[] memory ratings = new uint[](2);
-    ratings[0] = currRating+ratingFromCurrUser;
-    ratings[1] = totalUsers+1;
+        
 
-    return ratings;
-    // return ((currRating+ratingFromCurrUser)/(totalUsers+1)) * 5;
-}
+        // Crime Description in detail
+        string crimeDesc; 
 
-// TODO: Function To Show Crimes By City
+        /* Details regarding suspect
+            KEY         -> VALUE
+            Name        -> name_of_suspect
+            Age_Group   -> Young Adult(Below 30) | Middle-aged Adult(Below 60) | Old Adults(Above 60)
+            Gender      -> Male | Female
+            Description -> Other Details to identify suspects (eg.Face color, hair color, height... etc)
+
+        mapping(string => string) suspectInfo;
+        */
+        bool isSuspectKnown;
+        string[] suspectInfoAnswers;
+
+        /* Details regarding vehicle if any involved in case
+            KEY -> VALUE
+            License plate state , Number, Vehicle color.. etc.
+            mapping(string => string) vehicleInfo;
+        */
+        bool isVehiclePresent;
+        string[] vehicleInfoAnswers;
+        
+
+        /* Victim Details if known
+            KEY -> VALUE
+            Name, address... etc.
+            mapping(string => string) victimInfo;
+        */
+        bool isVictimKnown;
+        string[] victimInfoAnswers;
+
+        // IPFS Hash If any media files attached.
+        string ipfsHash;
+
+        // Feedbacks
+        string[] feedbacks;
+
+        // Case is active or closed [Active = true | Close = false]
+        bool isCaseActive;
+        
+        /*
+            KEY = ADMIN | USER
+            Value = MESSAGE
+        */
+
+    }
+
+    // Crime ID Wise Comversation
+    mapping(uint256 => MESSAGE[]) private conversations;
+
+    // List Of All Crimes that reported
+    Crime[] private crimes;
+
+    // Stores all crimes user wise.
+    mapping(address => Crime[]) crimesByUsers;
+
+    // Store all crimes of city
+    mapping(string => Crime[]) crimesOfCity;
+
+    // Function to submit crime (Storing Crime Details)
+    function submitCrime(uint256 _timestamp,
+                         string[] memory _location,
+                         string memory _crimeType,
+                         string[] memory _questionnaireAnswers,
+                         string memory _crimeDesc,
+                         string[] memory _suspectInfoAnswers,
+                         string[] memory _vehicleInfoAnswers,
+                         string[] memory _victimInfoAnswers,
+                         string memory _ipfsHash
+                        ) external {
+
+         Crime memory crime;     
+         crime.crimeId = crimes.length;   
+         crime.reporterWalletAddress = getReporterWalletAddress();
+         crime.timeStamp = _timestamp;   
+         crime.location = _location;
+         crime.crimeType = _crimeType;     
+         crime.questionnaireAnswers = _questionnaireAnswers;
+         crime.crimeDesc = _crimeDesc; 
+         crime.isCaseActive = true;
+         
+         crime.isSuspectKnown = false;
+         if(_suspectInfoAnswers.length>0){
+             crime.isSuspectKnown = true;
+             crime.suspectInfoAnswers = _suspectInfoAnswers;
+         }
+
+         crime.isVehiclePresent = false;
+         if(_vehicleInfoAnswers.length>0){
+             crime.isVehiclePresent = true;
+             crime.vehicleInfoAnswers = _vehicleInfoAnswers;
+         }
+
+         crime.isVictimKnown = false;
+         if(_victimInfoAnswers.length>0){
+             crime.isVictimKnown = true;
+             crime.victimInfoAnswers = _victimInfoAnswers;
+         }
+
+        crime.ipfsHash = _ipfsHash;
+        string[] memory _feedbacks;
+        crime.feedbacks = _feedbacks;
+        crimes.push(crime);
+
+        crimesByUsers[msg.sender].push(crime);
+        crimesOfCity[_location[1]].push(crime);
+
+    }
 
 
-// TODO: Function To Show Nearest Crimes By Latitude & Longitude
+    // Function to submit Feedbacks
+    function submitFeedback(uint256 _crimeId,string memory _feedback) external{
+        crimes[_crimeId].feedbacks.push(_feedback);
+    }
 
+    // Return Feedbacks By CrimeID
+   function getFeedbacksById(uint256 _crimeId) public view returns(string[] memory){
+       return crimes[_crimeId].feedbacks;
+   }
 
-// Function for admin to close case.
+    // Function to return all crime to admin side
+    function getCrimes() public view returns (Crime[] memory) {
+       return crimes;
+   }
+
+   // Return Crime By CrimeID
+   function getCrimeById(uint256 _crimeId) public view returns(Crime memory){
+       return crimes[_crimeId];
+   }
+
+    // Returns Total Number Of Crimes
+    function totalCrimes() public view returns (uint256) {
+       return crimes.length;
+   }
+
+    // Returns Address of wallet who Reporting the crime
+    function getReporterWalletAddress() public view returns(address){
+        return msg.sender;
+    }
+
+    // Return Crimes Submitted by the current user
+   function getCrimeOfCurrentUser() public view returns(Crime[] memory){
+        return crimesByUsers[msg.sender];
+   }
+
+    // Return Crimes of city
+   function getCrimeOfCity(string memory _city) public view returns(Crime[] memory){
+        return crimesOfCity[_city];
+   }
+
+   // Function for admin to close case.
   function closeCase(uint32 _crimeId) external {
     crimes[_crimeId].isCaseActive = false;
   }
 
-  function getCrimes() public view returns (Crime[] memory) {
-       return crimes;
-   }
+  // Conversation of admin to crime reporter.
+  function sendMessage(uint256 _crimeId,string memory _message, string memory _from) external{
+
+      conversations[_crimeId].push(MESSAGE(_message,_from));
+
+  }
+
+    // Return Conversations
+   function getConversation(uint256 _crimeId) public view returns(MESSAGE[] memory){
+       return conversations[_crimeId];
+  }
 
 }
+
+/*
+    Parameters For Testing
+
+    1660627677,["Maharashtra","Jalgaon","2.9454465","9.2487554"],Theft,["Bike"],"I saw the person stealing bike and going to Shiv Colony side",[],[],[],"IFPS_HASH_HERE"
+
+*/
