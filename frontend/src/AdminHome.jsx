@@ -40,7 +40,13 @@ export default function AdminHome() {
           robberyTips++;
         }
         console.log(currTip);
-        return <DisplayTip currTip={currTip} key={currTip.crimeId} />;
+        return (
+          <DisplayTip
+            currTip={currTip}
+            key={currTip.crimeId}
+            isDisplayWholeTip={true}
+          />
+        );
       })}
       <h1>Robbery Tips are : {robberyTips}</h1>
       <h1>Murder Tips are : {murderTips}</h1>

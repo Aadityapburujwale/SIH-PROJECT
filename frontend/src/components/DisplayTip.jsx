@@ -1,6 +1,9 @@
 // react components , hooks
 import React, { useEffect, useState } from "react";
 
+// link from react-router-dom to navigate to another route
+import { Link, useNavigate } from "react-router-dom";
+
 // import contract through which we can communicate to the blockchain
 import Contract from "../Contract";
 
@@ -11,8 +14,10 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-function DisplayTip({ currTip }) {
-  const [isDisplayWholeTip, setIsDisplayWholeTip] = useState(false);
+function DisplayTip({ currTip, isDisplayWholeTip, isAdminLoggedIn }) {
+  // useNavigate returns a function through which we can route to another route in functions
+  const navigate = useNavigate();
+
   const [feedback, setFeedback] = useState("");
   const [feedbacks, setFeedbacks] = useState(currTip.feedbacks);
   const [isVehiclePresent, setIsVehiclePresent] = useState(false);
@@ -86,24 +91,21 @@ function DisplayTip({ currTip }) {
         </Typography>
 
         <>
-          {!isDisplayWholeTip && (
+          {isDisplayWholeTip && (
             <CardActions>
-              {/* open current tip on another page to give feedback*/}
-              <Button
-                size="small"
-                onClick={() => {
-                  setIsDisplayWholeTip(true);
-                }}
+              <Link
+                to="/Tip"
+                state={{ currTip: currTip, isAdminLoggedIn: isAdminLoggedIn }}
               >
-                Show More
-              </Button>
+                <Button size="small">Show More</Button>
+              </Link>
             </CardActions>
           )}
         </>
 
         {/* Things to rendered when a user click on a show more button */}
 
-        {isDisplayWholeTip && (
+        {!isDisplayWholeTip && (
           <>
             {/* **** if suspect is known by tip provide ***** */}
 
@@ -215,16 +217,46 @@ function DisplayTip({ currTip }) {
             </form>
 
             <CardActions>
-              {/* open current tip on another page to give feedback*/}
+              {/* open current tip on another page to give feedback */}
+
               <Button
                 size="small"
                 onClick={() => {
-                  setIsDisplayWholeTip(false);
+                  navigate("/");
                 }}
               >
                 Show Less
               </Button>
             </CardActions>
+
+            {}
+            <CardActions>
+              {/* open current tip on another page to give feedback */}
+
+              <Button
+                size="small"
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Show Less
+              </Button>
+            </CardActions>
+
+            {/* {isAdminLoggedIn && (
+              <CardActions>
+                show This Remove Tip button only if the cop is logged in
+
+                <Button
+                  size="small"
+                  onClick={() => {
+                    Contract.
+                  }}
+                >
+                  Delete
+                </Button>
+              </CardActions>
+            )} */}
           </>
         )}
       </CardContent>

@@ -7,6 +7,7 @@ import Tips from "./Tips";
 import AdminHome from "./AdminHome";
 import LoginForm from "./LoginForm";
 import Form from "./Form";
+import Tip from "./components/Tip";
 
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -28,7 +29,7 @@ export default function App() {
       ></Header>
 
       <Routes>
-        <Route path="/" element={<Tips />} />
+        <Route path="/" element={<Tips isAdminLoggedIn={isAdminLoggedIn} />} />
         <Route
           path="/AdminHome"
           element={
@@ -47,6 +48,7 @@ export default function App() {
             )
           }
         />
+        <Route exact path="/Tip" element={<Tip />} />
       </Routes>
     </div>
   );

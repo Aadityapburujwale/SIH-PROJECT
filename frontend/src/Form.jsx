@@ -56,7 +56,6 @@ const App = () => {
     // regarding suspect
     let suspect = [];
     if (suspectName && suspectRadio) {
-      console.log("it's inside");
       let suspectData = {
         suspectName: suspectName,
         suspectAge: suspectAge,

@@ -9,7 +9,7 @@ import DisplayTip from "./components/DisplayTip";
 // import contract through which we can communicate to the blockchain
 import Contract from "./Contract";
 
-export default function Tips() {
+export default function Tips({ isAdminLoggedIn }) {
   const [tips, setTips] = useState([]);
 
   // function to get all the tips
@@ -34,7 +34,12 @@ export default function Tips() {
   return (
     <>
       {tips.map((currTip) => (
-        <DisplayTip currTip={currTip} key={currTip.crimeId} />
+        <DisplayTip
+          currTip={currTip}
+          key={currTip.crimeId}
+          isDisplayWholeTip={true}
+          isAdminLoggedIn={isAdminLoggedIn}
+        />
       ))}
     </>
   );
