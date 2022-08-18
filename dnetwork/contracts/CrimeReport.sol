@@ -1,4 +1,5 @@
-// SPDX-License-Identifier: MIT
+
+
 pragma solidity >= 0.7.0 < 0.9.0;
 
 contract CrimeReport{
@@ -18,10 +19,16 @@ contract CrimeReport{
 
     */
 
+    struct MESSAGE{
+        uint256 id;
+        string from;
+        string message;
+    }
+
     struct Crime{
 
         // Unique Id Number for each crime
-        uint256 crimeId; 
+        uint256 crimeId;
 
         // Wallet Address who submitted crime details
         address reporterWalletAddress;
@@ -99,7 +106,18 @@ contract CrimeReport{
         // Feedbacks
         string[] feedbacks;
 
+        // Case is active or closed [Active = true | Close = false]
+        bool isCaseActive;
+        
+        /*
+            KEY = ADMIN | USER
+            Value = MESSAGE
+        */
+
     }
+
+    // Crime ID Wise Comversation
+    mapping(uint256 => MESSAGE) private conversations;
 
     // List Of All Crimes that reported
     Crime[] private crimes;
@@ -130,6 +148,7 @@ contract CrimeReport{
          crime.crimeType = _crimeType;     
          crime.questionnaireAnswers = _questionnaireAnswers;
          crime.crimeDesc = _crimeDesc; 
+         crime.isCaseActive = true;
          
          crime.isSuspectKnown = false;
          if(_suspectInfoAnswers.length>0){
@@ -199,6 +218,21 @@ contract CrimeReport{
    function getCrimeOfCity(string memory _city) public view returns(Crime[] memory){
         return crimesOfCity[_city];
    }
+
+   // Function for admin to close case.
+  function closeCase(uint32 _crimeId) external {
+    crimes[_crimeId].isCaseActive = false;
+  }
+
+  // Conversation of admin to crime reporter.
+  function sendMessage(uint256 _crimeId,string memory _message, string memory _from) public{
+      
+      uint256 id = conversations[_crimeId].id + 1;
+
+      conversations[_crimeId] =  MESSAGE(id,_from,_message);
+
+
+  }
 
 }
 
