@@ -12,17 +12,21 @@ import Contract from "./Contract";
 export default function Tips() {
   const [tips, setTips] = useState([]);
 
-  const getTips = async () => {
+  // function to get all the tips
+  // this function get execute from useEffect hook whenever a component is loaded
+  async function getTips() {
     try {
       if (Contract) {
         const allTips = await Contract.getCrimes();
+        console.log(allTips);
         setTips(allTips);
       }
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
+  // adding an a event whenever component is loaded for the first time
   useEffect(() => {
     getTips();
   }, []);

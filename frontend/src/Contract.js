@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 
 // contract essentials
 import ContractAddress from "./config";
-import Abi from "./Crimes.json";
+import Abi from "./CrimeReport.json";
 
 let Contract;
 

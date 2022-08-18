@@ -1,5 +1,5 @@
-const Crimes = artifacts.require("Crimes");
+const CrimeReport = artifacts.require("CrimeReport");
 
 module.exports = function (deployer) {
-  deployer.deploy(Crimes);
+  deployer.deploy(CrimeReport);
 };
