@@ -8,6 +8,8 @@ import AdminHome from "./AdminHome";
 import LoginForm from "./LoginForm";
 import Form from "./Form";
 import Tip from "./components/Tip";
+import MyTip from "./components/MyTip";
+import MyProfile from "./MyProfile";
 
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -29,7 +31,15 @@ export default function App() {
       ></Header>
 
       <Routes>
-        <Route path="/" element={<Tips isAdminLoggedIn={isAdminLoggedIn} />} />
+        <Route
+          path="/"
+          element={
+            <Tips
+              isAdminLoggedIn={isAdminLoggedIn}
+              isUserConnected={isUserConnected}
+            />
+          }
+        />
         <Route
           path="/AdminHome"
           element={
@@ -49,6 +59,8 @@ export default function App() {
           }
         />
         <Route exact path="/Tip" element={<Tip />} />
+        <Route exact path="/MyProfile" element={<MyProfile />} />
+        <Route exact path="/MyProfile/MyTip" element={<MyTip />} />
       </Routes>
     </div>
   );

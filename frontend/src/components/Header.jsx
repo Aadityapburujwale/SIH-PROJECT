@@ -43,12 +43,11 @@ export default function Header({
         if (account) {
           window.localStorage.setItem("isUserConnected", "true");
           return setIsUserConnected(true);
-        } else {
-          window.localStorage.removeItem("isUserConnected");
-          return setIsUserConnected(false);
         }
       } catch (error) {
-        console.log("error");
+        window.localStorage.removeItem("isUserConnected");
+        setIsUserConnected(false);
+        console.log("this error occured : ");
       }
     } catch (error) {
       console.log("error occured");
@@ -93,11 +92,18 @@ export default function Header({
           ) : (
             <>
               {isUserConnected ? (
-                <Link to="/Form">
-                  <Button endIcon={<SendIcon />} variant="contained">
-                    Submit Tip
-                  </Button>
-                </Link>
+                <>
+                  <Link to="/Form">
+                    <Button endIcon={<SendIcon />} variant="contained">
+                      Submit Tip
+                    </Button>
+                  </Link>
+                  <Link to="/MyProfile">
+                    <Button endIcon={<SendIcon />} variant="contained">
+                      View Profile
+                    </Button>
+                  </Link>
+                </>
               ) : (
                 <Button
                   startIcon={<LoginIcon />}

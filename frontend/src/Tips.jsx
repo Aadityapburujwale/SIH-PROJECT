@@ -9,7 +9,7 @@ import DisplayTip from "./components/DisplayTip";
 // import contract through which we can communicate to the blockchain
 import Contract from "./Contract";
 
-export default function Tips({ isAdminLoggedIn }) {
+export default function Tips({ isAdminLoggedIn, isUserConnected }) {
   const [tips, setTips] = useState([]);
 
   // function to get all the tips
@@ -29,7 +29,7 @@ export default function Tips({ isAdminLoggedIn }) {
   // adding an a event whenever component is loaded for the first time
   useEffect(() => {
     getTips();
-  }, []);
+  }, [isUserConnected]);
 
   return (
     <>

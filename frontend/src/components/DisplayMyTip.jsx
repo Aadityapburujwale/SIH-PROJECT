@@ -14,12 +14,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-function DisplayTip({
-  currTip,
-  isDisplayWholeTip,
-  isAdminLoggedIn,
-  closeCase,
-}) {
+function DisplayMyTip({ currTip, isDisplayWholeTip }) {
   // useNavigate returns a function through which we can route to another route in functions
   const navigate = useNavigate();
 
@@ -96,12 +91,9 @@ function DisplayTip({
         </Typography>
 
         <>
-          {isDisplayWholeTip && (
+          {!isDisplayWholeTip && (
             <CardActions>
-              <Link
-                to="/Tip"
-                state={{ currTip: currTip, isAdminLoggedIn: isAdminLoggedIn }}
-              >
+              <Link to="/MyProfile/MyTip" state={{ currTip: currTip }}>
                 <Button size="small">Show More</Button>
               </Link>
             </CardActions>
@@ -110,8 +102,11 @@ function DisplayTip({
 
         {/* Things to rendered when a user click on a show more button */}
 
-        {!isDisplayWholeTip && (
+        {isDisplayWholeTip && (
           <>
+            <h1>
+              regardint the conversation between the cop and the tip provider
+            </h1>
             {/* **** if suspect is known by tip provide ***** */}
 
             {isSuspectKnown && (
@@ -197,60 +192,16 @@ function DisplayTip({
               </>
             )}
 
-            {/* form to take any feedback for the current tip from the users of that locality */}
-
-            {!isAdminLoggedIn ? (
-              <form>
-                <strong>
-                  <label htmlFor="feedback">
-                    Do You Have Any Information Regarding This :{" "}
-                  </label>
-                </strong>
-                <br />
-                <textarea
-                  value={feedback}
-                  id="feedback"
-                  cols="30"
-                  rows="4"
-                  onChange={(e) => {
-                    setFeedback(e.target.value);
-                  }}
-                ></textarea>
-                <br />
-                <button type="submit" onClick={handleSubmitFeedback}>
-                  Submit feedback
-                </button>
-              </form>
-            ) : (
-              <h1>Make converstation with the tip provider you are an admin</h1>
-            )}
-
             <CardActions>
-              {/* open current tip on another page to give feedback */}
-
               <Button
                 size="small"
                 onClick={() => {
-                  navigate("/");
+                  navigate("/MyProfile");
                 }}
               >
                 Show Less
               </Button>
             </CardActions>
-
-            {isAdminLoggedIn && (
-              <CardActions>
-                {/* show This Remove Tip button only if the cop is logged in */}
-                <Button
-                  size="small"
-                  onClick={() => {
-                    closeCase();
-                  }}
-                >
-                  Delete
-                </Button>
-              </CardActions>
-            )}
           </>
         )}
       </CardContent>
@@ -258,4 +209,4 @@ function DisplayTip({
   );
 }
 
-export default DisplayTip;
+export default DisplayMyTip;
