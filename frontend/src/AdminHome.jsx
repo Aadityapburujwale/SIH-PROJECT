@@ -45,6 +45,7 @@ export default function AdminHome() {
             currTip={currTip}
             key={currTip.crimeId}
             isDisplayWholeTip={true}
+            isAdminLoggedIn={true}
           />
         );
       })}

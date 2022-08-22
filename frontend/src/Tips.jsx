@@ -18,7 +18,7 @@ export default function Tips({ isAdminLoggedIn, isUserConnected }) {
     try {
       if (Contract) {
         const allTips = await Contract.getCrimes();
-        console.log(allTips);
+        console.log(allTips[0]);
         setTips(allTips);
       }
     } catch (error) {

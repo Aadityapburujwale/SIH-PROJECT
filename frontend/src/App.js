@@ -12,10 +12,11 @@ import MyTip from "./components/MyTip";
 import MyProfile from "./MyProfile";
 
 import { Routes, Route, Navigate } from "react-router-dom";
+import AutoGrid from "./components/AutoGrid";
 
 export default function App() {
   const [isUserConnected, setIsUserConnected] = useState(
-    window.localStorage.getItem("isUserConnected")
+    window.sessionStorage.getItem("isUserConnected")
   );
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(
     window.localStorage.getItem("isAdminLoggedIn")
@@ -34,7 +35,7 @@ export default function App() {
         <Route
           path="/"
           element={
-            <Tips
+            <AutoGrid
               isAdminLoggedIn={isAdminLoggedIn}
               isUserConnected={isUserConnected}
             />

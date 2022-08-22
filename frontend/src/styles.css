@@ -9,8 +9,10 @@ html {
 body {
   background: #eee;
   background-color: #fafdff;
-  background-color: #d4e3bd;
-background-image: url("https://www.transparenttextures.com/patterns/brick-wall-dark.png");
+  /* background-color: #d4e3bd; */
+  /* background-color: #787878; */
+  /* background-image: url("https://www.transparenttextures.com/patterns/black-mamba.png"); */
+  /* background-image: url("https://www.transparenttextures.com/patterns/brick-wall-dark.png"); */
   overflow-x: hidden;
 }
 

@@ -41,11 +41,10 @@ export default function Header({
         console.log("it's inside the connectWallet", account);
 
         if (account) {
-          window.localStorage.setItem("isUserConnected", "true");
+          window.sessionStorage.setItem("isUserConnected", "true");
           return setIsUserConnected(true);
         }
       } catch (error) {
-        window.localStorage.removeItem("isUserConnected");
         setIsUserConnected(false);
         console.log("this error occured : ");
       }
