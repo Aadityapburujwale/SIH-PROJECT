@@ -90,120 +90,104 @@ function DisplayMyTip({ currTip, isDisplayWholeTip }) {
           {currTip.location[1]}
         </Typography>
 
-        <>
-          {!isDisplayWholeTip && (
-            <CardActions>
-              <Link to="/MyProfile/MyTip" state={{ currTip: currTip }}>
-                <Button size="small">Show More</Button>
-              </Link>
-            </CardActions>
-          )}
-        </>
-
         {/* Things to rendered when a user click on a show more button */}
 
-        {isDisplayWholeTip && (
-          <>
-            <h1>
-              regardint the conversation between the cop and the tip provider
-            </h1>
-            {/* **** if suspect is known by tip provide ***** */}
+        <>
+          <h1>
+            regardint the conversation between the cop and the tip provider
+          </h1>
+          {/* **** if suspect is known by tip provide ***** */}
 
-            {isSuspectKnown && (
-              <>
-                <Typography variant="body2">
-                  <strong>Suspect Name : </strong>
-                  {suspectData.suspectName}
-                </Typography>
-                <Typography variant="body2">
-                  <strong>Suspect Age : </strong>
-                  {suspectData.suspectAge}
-                </Typography>
-                <Typography variant="body2">
-                  <strong>Suspect Gender : </strong>
-                  {suspectData.suspectGender}
-                </Typography>
-              </>
-            )}
+          {isSuspectKnown && (
+            <>
+              <Typography variant="body2">
+                <strong>Suspect Name : </strong>
+                {suspectData.suspectName}
+              </Typography>
+              <Typography variant="body2">
+                <strong>Suspect Age : </strong>
+                {suspectData.suspectAge}
+              </Typography>
+              <Typography variant="body2">
+                <strong>Suspect Gender : </strong>
+                {suspectData.suspectGender}
+              </Typography>
+            </>
+          )}
 
-            {/* **** if victim is known by tip provider ***** */}
+          {/* **** if victim is known by tip provider ***** */}
 
-            {isVictimKnown && (
-              <>
-                <Typography variant="body2">
-                  <strong>Victim Name : </strong>
-                  {victimData.victimName}
-                </Typography>
-                <Typography variant="body2">
-                  <strong>Victim Age : </strong>
-                  {victimData.victimAge}
-                </Typography>
-                <Typography variant="body2">
-                  <strong>Victim Gender : </strong>
-                  {victimData.victimGender}
-                </Typography>
-              </>
-            )}
+          {isVictimKnown && (
+            <>
+              <Typography variant="body2">
+                <strong>Victim Name : </strong>
+                {victimData.victimName}
+              </Typography>
+              <Typography variant="body2">
+                <strong>Victim Age : </strong>
+                {victimData.victimAge}
+              </Typography>
+              <Typography variant="body2">
+                <strong>Victim Gender : </strong>
+                {victimData.victimGender}
+              </Typography>
+            </>
+          )}
 
-            {/* **** if there is any vehicle involved in a crime location ***** */}
+          {/* **** if there is any vehicle involved in a crime location ***** */}
 
-            {isVehiclePresent && (
-              <>
-                <Typography variant="body2">
-                  <strong>Vehicle State : </strong>
-                  {vehicleData.vehicleState}
-                </Typography>
-                <Typography variant="body2">
-                  <strong>Vehicle plate Number : </strong>
-                  {vehicleData.vehiclePlateNumber}
-                </Typography>
-              </>
-            )}
+          {isVehiclePresent && (
+            <>
+              <Typography variant="body2">
+                <strong>Vehicle State : </strong>
+                {vehicleData.vehicleState}
+              </Typography>
+              <Typography variant="body2">
+                <strong>Vehicle plate Number : </strong>
+                {vehicleData.vehiclePlateNumber}
+              </Typography>
+            </>
+          )}
 
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            <strong>Description : </strong>
+            {currTip.crimeDesc}
+          </Typography>
+
+          <Typography variant="body2">
+            <strong>lattitude : </strong>
+            {currTip.location[2]}
+          </Typography>
+
+          <Typography variant="body2">
+            <strong>longitude : </strong>
+            {currTip.location[3]}
+          </Typography>
+
+          {feedbacks.length > 0 && (
+            <>
+              <p>This are the feedbacks : </p>
+              {feedbacks.map((currFeedBack, index) => {
+                return (
+                  <Typography variant="body2" key={index}>
+                    No {index + 1} : {currFeedBack}
+                  </Typography>
+                );
+              })}
+            </>
+          )}
+
+          <CardActions>
+            <Button
+              size="small"
+              onClick={() => {
+                navigate("/MyProfile");
+              }}
             >
-              <strong>Description : </strong>
-              {currTip.crimeDesc}
-            </Typography>
-
-            <Typography variant="body2">
-              <strong>lattitude : </strong>
-              {currTip.location[2]}
-            </Typography>
-
-            <Typography variant="body2">
-              <strong>longitude : </strong>
-              {currTip.location[3]}
-            </Typography>
-
-            {feedbacks.length > 0 && (
-              <>
-                <p>This are the feedbacks : </p>
-                {feedbacks.map((currFeedBack, index) => {
-                  return (
-                    <Typography variant="body2" key={index}>
-                      No {index + 1} : {currFeedBack}
-                    </Typography>
-                  );
-                })}
-              </>
-            )}
-
-            <CardActions>
-              <Button
-                size="small"
-                onClick={() => {
-                  navigate("/MyProfile");
-                }}
-              >
-                Show Less
-              </Button>
-            </CardActions>
-          </>
-        )}
+              Show Less
+            </Button>
+          </CardActions>
+        </>
       </CardContent>
     </Card>
   );

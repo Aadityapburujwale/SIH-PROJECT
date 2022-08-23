@@ -27,7 +27,6 @@ function Tip() {
   return (
     <div>
       <DisplayTip
-        isDisplayWholeTip={false}
         currTip={currTip}
         isAdminLoggedIn={isAdminLoggedIn}
         closeCase={closeCase}

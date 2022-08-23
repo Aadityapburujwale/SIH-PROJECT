@@ -12,7 +12,6 @@ import MyTip from "./components/MyTip";
 import MyProfile from "./MyProfile";
 
 import { Routes, Route, Navigate } from "react-router-dom";
-import AutoGrid from "./components/AutoGrid";
 
 export default function App() {
   const [isUserConnected, setIsUserConnected] = useState(
@@ -31,11 +30,12 @@ export default function App() {
         setIsAdminLoggedIn={setIsAdminLoggedIn}
       ></Header>
 
+      {/* Here we're defining the which component should render when the route is changed without reloadin the web page */}
       <Routes>
         <Route
           path="/"
           element={
-            <AutoGrid
+            <Tips
               isAdminLoggedIn={isAdminLoggedIn}
               isUserConnected={isUserConnected}
             />

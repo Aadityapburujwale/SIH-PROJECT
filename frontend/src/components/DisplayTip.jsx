@@ -10,12 +10,7 @@ import Contract from "../Contract";
 // bootstrap components
 import { Button, Card, ListGroup } from "react-bootstrap";
 
-function DisplayTip({
-  currTip,
-  isDisplayWholeTip,
-  isAdminLoggedIn,
-  closeCase,
-}) {
+function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
   // useNavigate returns a function through which we can route to another route in functions
   const navigate = useNavigate();
 
@@ -85,132 +80,116 @@ function DisplayTip({
           </ListGroup.Item>
           <ListGroup.Item></ListGroup.Item>
         </ListGroup>
-
-        {isDisplayWholeTip && (
+        {/* Things to rendered when a user click on a show more button */}
+        {isSuspectKnown && (
           <>
-            <Link
-              to="/Tip"
-              state={{ currTip: currTip, isAdminLoggedIn: isAdminLoggedIn }}
-            >
-              <Button variant="primary">Open</Button>
-            </Link>
+            <ListGroup variant="flush">
+              <ListGroup.Item></ListGroup.Item>
+              <ListGroup.Item>
+                Suspect Name : {suspectData.suspectName}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Suspect Age : {suspectData.suspectAge}{" "}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Suspect Gender : {suspectData.suspectGender}
+              </ListGroup.Item>
+              <ListGroup.Item></ListGroup.Item>
+            </ListGroup>
           </>
         )}
-
-        {/* Things to rendered when a user click on a show more button */}
-
-        {!isDisplayWholeTip && (
+        {/* **** if victim is known by tip provider ***** */}
+        {isVictimKnown && (
           <>
-            {isSuspectKnown && (
-              <>
-                <ListGroup variant="flush">
-                  <ListGroup.Item></ListGroup.Item>
-                  <ListGroup.Item>
-                    Suspect Name : {suspectData.suspectName}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    Suspect Age : {suspectData.suspectAge}{" "}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    Suspect Gender : {suspectData.suspectGender}
-                  </ListGroup.Item>
-                  <ListGroup.Item></ListGroup.Item>
-                </ListGroup>
-              </>
-            )}
-            {/* **** if victim is known by tip provider ***** */}
-            {isVictimKnown && (
-              <>
-                <ListGroup variant="flush">
-                  <ListGroup.Item></ListGroup.Item>
-                  <ListGroup.Item>
-                    Victim Name :{victimData.victimName}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    Victim Age :{victimData.victimAge}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    Victim Gender :{victimData.victimGender}
-                  </ListGroup.Item>
-                  <ListGroup.Item></ListGroup.Item>
-                </ListGroup>
-              </>
-            )}
-            {/* **** if there is any vehicle involved in a crime location ***** */}
-            {isVehiclePresent && (
-              <>
-                <ListGroup variant="flush">
-                  <ListGroup.Item></ListGroup.Item>
-                  <ListGroup.Item>
-                    Vehicle State :{vehicleData.vehicleState}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    Vehicle plate Number :{vehicleData.vehiclePlateNumber}{" "}
-                  </ListGroup.Item>
-                </ListGroup>
-              </>
-            )}
             <ListGroup variant="flush">
-              <ListGroup.Item> Description : </ListGroup.Item>
-              <Card.Text>{currTip.crimeDesc}</Card.Text>
+              <ListGroup.Item></ListGroup.Item>
+              <ListGroup.Item>
+                Victim Name :{victimData.victimName}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Victim Age :{victimData.victimAge}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Victim Gender :{victimData.victimGender}
+              </ListGroup.Item>
+              <ListGroup.Item></ListGroup.Item>
             </ListGroup>
-            {feedbacks.length > 0 && (
-              <>
-                <ListGroup variant="flush">
-                  <ListGroup.Item> This are the feedbacks : </ListGroup.Item>
-                  {feedbacks.map((currFeedBack, index) => {
-                    return (
-                      <ListGroup.Item key={index}>
-                        No {index + 1} : {currFeedBack}
-                      </ListGroup.Item>
-                    );
-                  })}
-                </ListGroup>
-              </>
-            )}
-            {!isAdminLoggedIn ? (
-              <form>
-                <label htmlFor="feedback">
-                  Do You Have Any Information Regarding This :{" "}
-                </label>
-
-                <br />
-                <textarea
-                  value={feedback}
-                  id="feedback"
-                  cols="30"
-                  rows="4"
-                  onChange={(e) => {
-                    setFeedback(e.target.value);
-                  }}
-                ></textarea>
-                <br />
-                <button type="submit" onClick={handleSubmitFeedback}>
-                  Submit feedback
-                </button>
-              </form>
-            ) : (
-              <h1>Make converstation with the tip provider you are an admin</h1>
-            )}
-            <Button
-              variant="secondary"
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              Show Less
-            </Button>{" "}
-            {isAdminLoggedIn && (
-              // show This Remove Tip button only if the cop is logged in
-              <Button
-                onClick={() => {
-                  closeCase();
-                }}
-              >
-                Delete
-              </Button>
-            )}
           </>
+        )}
+        {/* **** if there is any vehicle involved in a crime location ***** */}
+        {isVehiclePresent && (
+          <>
+            <ListGroup variant="flush">
+              <ListGroup.Item></ListGroup.Item>
+              <ListGroup.Item>
+                Vehicle State :{vehicleData.vehicleState}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Vehicle plate Number :{vehicleData.vehiclePlateNumber}{" "}
+              </ListGroup.Item>
+            </ListGroup>
+          </>
+        )}
+        <ListGroup variant="flush">
+          <ListGroup.Item> Description : </ListGroup.Item>
+          <Card.Text>{currTip.crimeDesc}</Card.Text>
+        </ListGroup>
+        {feedbacks.length > 0 && (
+          <>
+            <ListGroup variant="flush">
+              <ListGroup.Item> This are the feedbacks : </ListGroup.Item>
+              {feedbacks.map((currFeedBack, index) => {
+                return (
+                  <ListGroup.Item key={index}>
+                    No {index + 1} : {currFeedBack}
+                  </ListGroup.Item>
+                );
+              })}
+            </ListGroup>
+          </>
+        )}
+        {!isAdminLoggedIn ? (
+          <form>
+            <label htmlFor="feedback">
+              Do You Have Any Information Regarding This :{" "}
+            </label>
+
+            <br />
+            <textarea
+              value={feedback}
+              id="feedback"
+              cols="30"
+              rows="4"
+              onChange={(e) => {
+                setFeedback(e.target.value);
+              }}
+            ></textarea>
+            <br />
+            <button type="submit" onClick={handleSubmitFeedback}>
+              Submit feedback
+            </button>
+          </form>
+        ) : (
+          <h1>Make converstation with the tip provider you are an admin</h1>
+        )}
+        <Button
+          variant="secondary"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Show Less
+        </Button>{" "}
+        {isAdminLoggedIn && (
+          // show This Remove Tip button only if the cop is logged in
+          <Button
+            variant="danger"
+            onClick={() => {
+              closeCase();
+            }}
+          >
+            Delete
+          </Button>
         )}
       </Card.Body>
     </Card>

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import DisplayMyTip from "./components/DisplayMyTip";
+import DisplayMyShortTip from "./components/DisplayMyShortTip";
 
 import Contract from "./Contract";
+
+// material ui
+import Grid from "@mui/material/Grid";
 
 function MyProfile() {
   const [tips, setTips] = useState([]);
@@ -17,16 +20,15 @@ function MyProfile() {
 
   return (
     <>
-      {/* <h1>inside my profile</h1> */}
-      {tips.map((currTip, index) => {
-        return (
-          <DisplayMyTip
-            currTip={currTip}
-            key={index}
-            isDisplayWholeTip={false}
-          />
-        );
-      })}
+      <Grid container justifyContent="center">
+        {tips.map((currTip, index) => {
+          return (
+            <Grid key={index} item xs={10} sm={5} md={5} lg={4} m={1}>
+              <DisplayMyShortTip currTip={currTip} />
+            </Grid>
+          );
+        })}
+      </Grid>
     </>
   );
 }
