@@ -1,6 +1,6 @@
-
-
 pragma solidity >= 0.7.0 < 0.9.0;
+
+import "Utils.sol";
 
 contract CrimeReport{
 
@@ -19,6 +19,7 @@ contract CrimeReport{
 
     */
 
+    // Conversation Model
     struct MESSAGE{
         uint256 id;
         string from;
@@ -107,7 +108,7 @@ contract CrimeReport{
         string[] feedbacks;
 
         // Case is active or closed [Active = true | Close = false]
-        bool isCaseActive;
+        bool isCaseActive; 
         
         /*
             KEY = ADMIN | USER
@@ -116,12 +117,21 @@ contract CrimeReport{
 
     }
 
+    // Statistics Model
+
+    struct Statistics{
+        uint murderCases;
+        uint theftCases;
+	uint drugsCases;
+	uint harassmentCases;
+    }
+
     // Crime ID Wise Comversation
     mapping(uint256 => MESSAGE) private conversations;
 
     // List Of All Crimes that reported
     Crime[] private crimes;
-
+    Statistics private stats;
     // Stores all crimes user wise.
     mapping(address => Crime[]) crimesByUsers;
 
@@ -176,6 +186,16 @@ contract CrimeReport{
         crimesByUsers[msg.sender].push(crime);
         crimesOfCity[_location[1]].push(crime);
 
+        if(StringUtils.equal(_crimeType,"Murder")){
+            stats.murderCases++;
+        }else if(StringUtils.equal(_crimeType,"Theft")){
+            stats.theftCases++;
+        }else if(StringUtils.equal(_crimeType,"Drugs")){
+            stats.drugsCases++;
+        }else if(StringUtils.equal(_crimeType,"HarassmentCases")){
+		stats.harassmentCases++;
+	}
+
     }
 
 
@@ -220,19 +240,21 @@ contract CrimeReport{
    }
 
    // Function for admin to close case.
-  function closeCase(uint32 _crimeId) external {
+  function closeCase(uint32 _crimeId) public {
     crimes[_crimeId].isCaseActive = false;
   }
 
   // Conversation of admin to crime reporter.
   function sendMessage(uint256 _crimeId,string memory _message, string memory _from) public{
-      
       uint256 id = conversations[_crimeId].id + 1;
-
       conversations[_crimeId] =  MESSAGE(id,_from,_message);
-
-
   }
+
+  // Get crime Statistics
+  function getCrimeStatistics() public view returns(Statistics memory) {
+      return stats;
+  }
+ 
 
 }
 
