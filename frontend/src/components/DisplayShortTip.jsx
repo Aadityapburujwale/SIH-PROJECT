@@ -38,7 +38,11 @@ function DisplayShortTip({ currTip, isAdminLoggedIn }) {
 
         <Link
           to="/Tip"
-          state={{ currTip: currTip, isAdminLoggedIn: isAdminLoggedIn }}
+          style={{ textDecoration: "none" }}
+          state={{
+            currTip: currTip,
+            isAdminLoggedIn: isAdminLoggedIn,
+          }}
         >
           <Button variant="primary">Open</Button>
         </Link>

@@ -22,6 +22,7 @@ function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
   const [suspectData, setSuspectData] = useState([]);
   const [isVictimKnown, setIsVictimKnown] = useState(false);
   const [victimData, setVictimData] = useState([]);
+  const [isTipIsOfCurrentUser, setIsTipIsOfCurrentUser] = useState(false);
 
   useEffect(() => {
     if (currTip.isVehiclePresent) {
@@ -38,6 +39,16 @@ function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
       setIsSuspectKnown(true);
       setSuspectData(JSON.parse(currTip.suspectInfoAnswers[0]));
     }
+
+    async function checkTipIsOfUser() {
+      const currentReporterAddress = await Contract.getReporterWalletAddress();
+
+      if (currentReporterAddress === currTip.reporterWalletAddress) {
+        setIsTipIsOfCurrentUser(true);
+      }
+    }
+
+    checkTipIsOfUser();
   }, []);
 
   // convert date from _hex to Date format
@@ -148,29 +159,31 @@ function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
             </ListGroup>
           </>
         )}
-        {!isAdminLoggedIn ? (
-          <form>
-            <label htmlFor="feedback">
-              Do You Have Any Information Regarding This :{" "}
-            </label>
-
-            <br />
-            <textarea
-              value={feedback}
-              id="feedback"
-              cols="30"
-              rows="4"
-              onChange={(e) => {
-                setFeedback(e.target.value);
-              }}
-            ></textarea>
-            <br />
-            <button type="submit" onClick={handleSubmitFeedback}>
-              Submit feedback
-            </button>
-          </form>
-        ) : (
+        {isAdminLoggedIn ? (
           <h1>Make converstation with the tip provider you are an admin</h1>
+        ) : (
+          !isTipIsOfCurrentUser && (
+            <form>
+              <label htmlFor="feedback">
+                Do You Have Any Information Regarding This :{" "}
+              </label>
+
+              <br />
+              <textarea
+                value={feedback}
+                id="feedback"
+                cols="30"
+                rows="4"
+                onChange={(e) => {
+                  setFeedback(e.target.value);
+                }}
+              ></textarea>
+              <br />
+              <button type="submit" onClick={handleSubmitFeedback}>
+                Submit feedback
+              </button>
+            </form>
+          )
         )}
         <Button
           variant="secondary"

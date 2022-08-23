@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import DisplayMyShortTip from "./components/DisplayMyShortTip";
+import DisplayShortTip from "./components/DisplayShortTip";
 
 import Contract from "./Contract";
 
@@ -141,7 +141,7 @@ export default function AdminHome() {
         {tips.map((currTip, index) => {
           return (
             <Grid key={index} item xs={10} sm={5} md={5} lg={4} m={1}>
-              <DisplayMyShortTip currTip={currTip} />
+              <DisplayShortTip currTip={currTip} isAdminLoggedIn={true} />
             </Grid>
           );
         })}
