@@ -1,6 +1,5 @@
 pragma solidity >= 0.7.0 < 0.9.0;
 
-import "Utils.sol";
 
 contract CrimeReport{
 
@@ -186,13 +185,13 @@ contract CrimeReport{
         crimesByUsers[msg.sender].push(crime);
         crimesOfCity[_location[1]].push(crime);
 
-        if(StringUtils.equal(_crimeType,"Murder")){
+        if(equal(_crimeType,"Murder")){
             stats.murderCases++;
-        }else if(StringUtils.equal(_crimeType,"Theft")){
+        }else if(equal(_crimeType,"Theft")){
             stats.theftCases++;
-        }else if(StringUtils.equal(_crimeType,"Drugs")){
+        }else if(equal(_crimeType,"Drugs")){
             stats.drugsCases++;
-        }else if(StringUtils.equal(_crimeType,"HarassmentCases")){
+        }else if(equal(_crimeType,"HarassmentCases")){
 		stats.harassmentCases++;
 	}
 
@@ -255,6 +254,29 @@ contract CrimeReport{
       return stats;
   }
  
+
+  function compare(string memory _a, string memory _b) public pure returns (int) {
+        bytes memory a = bytes(_a);
+        bytes memory b = bytes(_b);
+        uint minLength = a.length;
+        if (b.length < minLength) minLength = b.length;
+     
+        for (uint i = 0; i < minLength; i ++)
+            if (a[i] < b[i])
+                return -1;
+            else if (a[i] > b[i])
+                return 1;
+        if (a.length < b.length)
+            return -1;
+        else if (a.length > b.length)
+            return 1;
+        else
+            return 0;
+    }
+
+    function equal(string memory _a, string memory _b) public pure returns (bool) {
+        return compare(_a, _b) == 0;
+    }
 
 }
 
