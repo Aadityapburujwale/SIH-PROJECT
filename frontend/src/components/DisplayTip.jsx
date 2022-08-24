@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 // link from react-router-dom to navigate to another route
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // import contract through which we can communicate to the blockchain
 import Contract from "../Contract";
@@ -10,21 +10,29 @@ import Contract from "../Contract";
 // bootstrap components
 import { Button, Card, ListGroup } from "react-bootstrap";
 
+// web3 storage api
+
 function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
   // useNavigate returns a function through which we can route to another route in functions
   const navigate = useNavigate();
 
   const [feedback, setFeedback] = useState("");
   const [feedbacks, setFeedbacks] = useState(currTip.feedbacks);
+
   const [isVehiclePresent, setIsVehiclePresent] = useState(false);
   const [vehicleData, setVehicleData] = useState([]);
+
   const [isSuspectKnown, setIsSuspectKnown] = useState(false);
   const [suspectData, setSuspectData] = useState([]);
+
   const [isVictimKnown, setIsVictimKnown] = useState(false);
   const [victimData, setVictimData] = useState([]);
+
   const [isTipIsOfCurrentUser, setIsTipIsOfCurrentUser] = useState(false);
+  const [isMediaPresent, setIsMediaPresent] = useState(true);
 
   useEffect(() => {
+    // if vehicle present then and then only show vehicle related information
     if (currTip.isVehiclePresent) {
       setIsVehiclePresent(true);
       setVehicleData(JSON.parse(currTip.vehicleInfoAnswers[0]));
@@ -38,6 +46,11 @@ function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
     if (currTip.isSuspectKnown) {
       setIsSuspectKnown(true);
       setSuspectData(JSON.parse(currTip.suspectInfoAnswers[0]));
+    }
+
+    // check if media is availabel for current tip or not
+    if (currTip.fileNames.length > 0) {
+      setIsMediaPresent(true);
     }
 
     async function checkTipIsOfUser() {
@@ -145,6 +158,23 @@ function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
           <ListGroup.Item> Description : </ListGroup.Item>
           <Card.Text>{currTip.crimeDesc}</Card.Text>
         </ListGroup>
+        {/* ******************************************************************* */}
+        {/* display an media that is attached to the crime tip */}
+        {isMediaPresent &&
+          currTip.fileNames.map((fileName, index) => {
+            // url is passed as src of every file in
+
+            return (
+              <img
+                src={`https://${currTip.ipfsHash}.ipfs.w3s.link/${fileName}`}
+                alt="Tip Image"
+                key={index}
+                style={{ width: "500px", height: "500px" }}
+              />
+            );
+          })}
+        {/* ***************************************************************** */}
+        {/* display feedback if any present */}
         {feedbacks.length > 0 && (
           <>
             <ListGroup variant="flush">

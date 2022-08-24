@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import RobberyQue from "./RobberyQue";
 
 // import contract through which we can communicate to the blockchain
 import Contract from "./Contract";
 
+// web3storage
+import { Web3Storage } from "web3.storage";
+
 // The useNavigate hook returns a function that lets you navigate programmatically,
 import { useNavigate } from "react-router-dom";
+import FileUploadPage from "./components/FileUploadPage";
 
 const App = () => {
   // useNavigate returns a function through which we can route to another route in functions
   const navigate = useNavigate();
+
+  // states that hold's the data
 
   const [date, setdate] = useState(new Date());
   const [crimeType, setCrimeType] = useState("");
@@ -42,6 +48,11 @@ const App = () => {
   const [vehicleType, setVehicleType] = useState("");
   const [vehicleState, setVehicleState] = useState("");
   const [vehiclePlateNumber, setVehiclePlateNumber] = useState("");
+
+  // This states defined to take the files as input and handle the files
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [cid, setCid] = useState("");
+  const [selectedFileNames, setSelectedFileNames] = useState([]);
 
   //    *************************************** Submit Tip Function ****************************************88
   //   funtion to submit tip whenever button from the form is triggered
@@ -85,6 +96,14 @@ const App = () => {
       vehicle.push(JSON.stringify(vehicleData));
     }
 
+    // initially ipfs hash is empty
+    // if user had provided the media then change the hash to cid
+    let ipfsHash = "";
+    let fileNames = selectedFileNames;
+    if (cid) {
+      ipfsHash = cid;
+    }
+
     try {
       Contract.submitCrime(
         currDate,
@@ -95,7 +114,8 @@ const App = () => {
         suspect, // regarding suspect
         vehicle, // regarding vehicle
         victim, // regarding victim
-        "some ipfs hash here"
+        ipfsHash, // store ipfs hash here
+        fileNames
       )
         .then(() => {
           alert("Tip Submitted successfully anonymously");
@@ -503,7 +523,6 @@ const App = () => {
               )}
             </div>
 
-            {/* attach an a media file from the below */}
             <div
               className="media-file"
               style={{
@@ -513,7 +532,15 @@ const App = () => {
                 height: "5rem",
               }}
             >
-              <input type="file" />
+              {/* form to take inputs as files */}
+
+              <FileUploadPage
+                selectedFiles={selectedFiles}
+                setSelectedFiles={setSelectedFiles}
+                setCid={setCid}
+                selectedFileNames={selectedFileNames}
+                setSelectedFileNames={setSelectedFileNames}
+              />
             </div>
 
             <div

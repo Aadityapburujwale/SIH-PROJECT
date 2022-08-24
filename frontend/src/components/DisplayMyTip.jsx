@@ -2,19 +2,15 @@
 import React, { useEffect, useState } from "react";
 
 // link from react-router-dom to navigate to another route
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // import contract through which we can communicate to the blockchain
 import Contract from "../Contract";
 
-// material ui components
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+// bootstrap components
+import { Button, Card, ListGroup } from "react-bootstrap";
 
-function DisplayMyTip({ currTip, isDisplayWholeTip }) {
+function DisplayMyTip({ currTip }) {
   // useNavigate returns a function through which we can route to another route in functions
   const navigate = useNavigate();
 
@@ -26,6 +22,9 @@ function DisplayMyTip({ currTip, isDisplayWholeTip }) {
   const [suspectData, setSuspectData] = useState([]);
   const [isVictimKnown, setIsVictimKnown] = useState(false);
   const [victimData, setVictimData] = useState([]);
+  const [isMediaPresent, setIsMediaPresent] = useState(false);
+
+  // useEffect execute every time whenever the component is rendered
 
   useEffect(() => {
     if (currTip.isVehiclePresent) {
@@ -41,6 +40,11 @@ function DisplayMyTip({ currTip, isDisplayWholeTip }) {
     if (currTip.isSuspectKnown) {
       setIsSuspectKnown(true);
       setSuspectData(JSON.parse(currTip.suspectInfoAnswers[0]));
+    }
+
+    // check if media is availabel for current tip or not
+    if (currTip.fileNames.length > 0) {
+      setIsMediaPresent(true);
     }
   }, []);
 
@@ -71,124 +75,113 @@ function DisplayMyTip({ currTip, isDisplayWholeTip }) {
   return (
     // just rendering a card component to display a tip every time
 
-    <Card sx={{ margin: 4 }} key={currTip.crimeId}>
-      <CardContent>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          <strong> Date : </strong>
-          {date}
-        </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          <strong>Crime Type : </strong>
-          {currTip.crimeType}
-        </Typography>
-        <Typography variant="body2">
-          <strong>Crime state : </strong>
-          {currTip.location[0]}
-        </Typography>
-        <Typography variant="body2">
-          <strong>Crime City : </strong>
-          {currTip.location[1]}
-        </Typography>
+    <Card>
+      <Card.Header>Crime type name : {currTip.crimeType}</Card.Header>
 
+      <Card.Body>
+        <ListGroup variant="flush">
+          <ListGroup.Item></ListGroup.Item>
+          <ListGroup.Item>Date : {date}</ListGroup.Item>
+          <ListGroup.Item>City Name : {currTip.location[0]} </ListGroup.Item>
+          <ListGroup.Item>
+            Crime Location : {currTip.location[0]}
+          </ListGroup.Item>
+          <ListGroup.Item></ListGroup.Item>
+        </ListGroup>
         {/* Things to rendered when a user click on a show more button */}
+        {isSuspectKnown && (
+          <>
+            <ListGroup variant="flush">
+              <ListGroup.Item></ListGroup.Item>
+              <ListGroup.Item>
+                Suspect Name : {suspectData.suspectName}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Suspect Age : {suspectData.suspectAge}{" "}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Suspect Gender : {suspectData.suspectGender}
+              </ListGroup.Item>
+              <ListGroup.Item></ListGroup.Item>
+            </ListGroup>
+          </>
+        )}
+        {/* **** if victim is known by tip provider ***** */}
+        {isVictimKnown && (
+          <>
+            <ListGroup variant="flush">
+              <ListGroup.Item></ListGroup.Item>
+              <ListGroup.Item>
+                Victim Name :{victimData.victimName}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Victim Age :{victimData.victimAge}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Victim Gender :{victimData.victimGender}
+              </ListGroup.Item>
+              <ListGroup.Item></ListGroup.Item>
+            </ListGroup>
+          </>
+        )}
+        {/* **** if there is any vehicle involved in a crime location ***** */}
+        {isVehiclePresent && (
+          <>
+            <ListGroup variant="flush">
+              <ListGroup.Item></ListGroup.Item>
+              <ListGroup.Item>
+                Vehicle State :{vehicleData.vehicleState}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Vehicle plate Number :{vehicleData.vehiclePlateNumber}{" "}
+              </ListGroup.Item>
+            </ListGroup>
+          </>
+        )}
+        <ListGroup variant="flush">
+          <ListGroup.Item> Description : </ListGroup.Item>
+          <Card.Text>{currTip.crimeDesc}</Card.Text>
+        </ListGroup>
+        {/* ******************************************************************* */}
+        {/* display an media that is attached to the crime tip */}
+        {isMediaPresent &&
+          currTip.fileNames.map((fileName, index) => {
+            // url is passed as src of every file in
 
-        <>
-          <h1>
-            regardint the conversation between the cop and the tip provider
-          </h1>
-          {/* **** if suspect is known by tip provide ***** */}
-
-          {isSuspectKnown && (
-            <>
-              <Typography variant="body2">
-                <strong>Suspect Name : </strong>
-                {suspectData.suspectName}
-              </Typography>
-              <Typography variant="body2">
-                <strong>Suspect Age : </strong>
-                {suspectData.suspectAge}
-              </Typography>
-              <Typography variant="body2">
-                <strong>Suspect Gender : </strong>
-                {suspectData.suspectGender}
-              </Typography>
-            </>
-          )}
-
-          {/* **** if victim is known by tip provider ***** */}
-
-          {isVictimKnown && (
-            <>
-              <Typography variant="body2">
-                <strong>Victim Name : </strong>
-                {victimData.victimName}
-              </Typography>
-              <Typography variant="body2">
-                <strong>Victim Age : </strong>
-                {victimData.victimAge}
-              </Typography>
-              <Typography variant="body2">
-                <strong>Victim Gender : </strong>
-                {victimData.victimGender}
-              </Typography>
-            </>
-          )}
-
-          {/* **** if there is any vehicle involved in a crime location ***** */}
-
-          {isVehiclePresent && (
-            <>
-              <Typography variant="body2">
-                <strong>Vehicle State : </strong>
-                {vehicleData.vehicleState}
-              </Typography>
-              <Typography variant="body2">
-                <strong>Vehicle plate Number : </strong>
-                {vehicleData.vehiclePlateNumber}
-              </Typography>
-            </>
-          )}
-
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            <strong>Description : </strong>
-            {currTip.crimeDesc}
-          </Typography>
-
-          <Typography variant="body2">
-            <strong>lattitude : </strong>
-            {currTip.location[2]}
-          </Typography>
-
-          <Typography variant="body2">
-            <strong>longitude : </strong>
-            {currTip.location[3]}
-          </Typography>
-
-          {feedbacks.length > 0 && (
-            <>
-              <p>This are the feedbacks : </p>
+            return (
+              <img
+                src={`https://${currTip.ipfsHash}.ipfs.w3s.link/${fileName}`}
+                alt="Tip Image"
+                key={index}
+                style={{ width: "500px", height: "500px" }}
+              />
+            );
+          })}
+        {/* ***************************************************************** */}
+        {/* display feedback if any present */}
+        {feedbacks.length > 0 && (
+          <>
+            <ListGroup variant="flush">
+              <ListGroup.Item> This are the feedbacks : </ListGroup.Item>
               {feedbacks.map((currFeedBack, index) => {
                 return (
-                  <Typography variant="body2" key={index}>
+                  <ListGroup.Item key={index}>
                     No {index + 1} : {currFeedBack}
-                  </Typography>
+                  </ListGroup.Item>
                 );
               })}
-            </>
-          )}
-
-          <CardActions>
-            <Button
-              size="small"
-              onClick={() => {
-                navigate("/MyProfile");
-              }}
-            >
-              Show Less
-            </Button>
-          </CardActions>
-        </>
-      </CardContent>
+            </ListGroup>
+          </>
+        )}
+        <Button
+          variant="secondary"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Show Less
+        </Button>{" "}
+      </Card.Body>
     </Card>
   );
 }

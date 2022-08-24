@@ -103,6 +103,9 @@ contract CrimeReport{
         // IPFS Hash If any media files attached.
         string ipfsHash;
 
+        // input file names
+        string[] fileNames;
+
         // Feedbacks
         string[] feedbacks;
 
@@ -146,7 +149,8 @@ contract CrimeReport{
                          string[] memory _suspectInfoAnswers,
                          string[] memory _vehicleInfoAnswers,
                          string[] memory _victimInfoAnswers,
-                         string memory _ipfsHash
+                         string memory _ipfsHash,
+                         string[] memory _fileNames
                         ) external {
 
          Crime memory crime;     
@@ -178,6 +182,7 @@ contract CrimeReport{
          }
 
         crime.ipfsHash = _ipfsHash;
+        crime.fileNames = _fileNames;
         string[] memory _feedbacks;
         crime.feedbacks = _feedbacks;
         crimes.push(crime);
