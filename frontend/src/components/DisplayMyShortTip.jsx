@@ -30,9 +30,9 @@ function DisplayMyShortTip({ currTip }) {
       <Card.Body>
         <ListGroup variant="flush">
           <ListGroup.Item>Date : {date}</ListGroup.Item>
-          <ListGroup.Item>City Name : {currTip.location[0]} </ListGroup.Item>
+          <ListGroup.Item>State Name : {currTip.location[0]} </ListGroup.Item>
           <ListGroup.Item>
-            Crime Location : {currTip.location[0]}
+            City Name : {currTip.location[1]}
           </ListGroup.Item>
         </ListGroup>
 

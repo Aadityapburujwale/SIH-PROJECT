@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 // import contract through which we can communicate to the blockchain
 import Contract from "./Contract";
 
-// web3storage
-import { Web3Storage } from "web3.storage";
+// components
+import MapPicker from "./components/MapPicker"
 
 // The useNavigate hook returns a function that lets you navigate programmatically,
 import { useNavigate } from "react-router-dom";
@@ -27,12 +27,7 @@ const App = () => {
   //   necessary inputs
   const [crimeDes, setCrimeDes] = useState("");
   const [numberOfSuspects, setNumberOfSuspects] = useState("");
-  const [location, setLocation] = useState([
-    "Maharashtra",
-    "jalgaon",
-    "34.5353",
-    "53.5225",
-  ]);
+  
 
   //   states to handle the suspect information
   const [suspectName, setSuspectName] = useState("");
@@ -53,6 +48,17 @@ const App = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [cid, setCid] = useState("");
   const [selectedFileNames, setSelectedFileNames] = useState([]);
+
+  
+
+
+  // This states are used to store the location information like , lattitude , longitude , state , city of crime
+
+  const [lat , setLat] = useState(34.43434);
+  const [lng , setLng] = useState(35.53323);
+  const [stateName , setStateName] = useState("");
+  const [cityName , setCityName] = useState("");
+
 
   //    *************************************** Submit Tip Function ****************************************88
   //   funtion to submit tip whenever button from the form is triggered
@@ -104,6 +110,12 @@ const App = () => {
       ipfsHash = cid;
     }
 
+    // set the location here like , lattitude , longitude , state and city
+
+
+    let location = [stateName , cityName , lat, lng];
+    
+    
     try {
       Contract.submitCrime(
         currDate,
@@ -183,13 +195,14 @@ const App = () => {
 
             <p>Select State and City In Map</p>
             <div
-              className="map-content"
               style={{
-                width: "50rem",
-                height: "20rem",
+                width: "500px",
+                // height: "500px",
                 border: "1px solid",
               }}
-            ></div>
+            >
+              <MapPicker lat={lat} lng={lng} setLat={setLat} setLng={setLng} setCityName={setCityName} setStateName={setStateName} />
+            </div>
 
             {/* **** type of crime **  */}
             <div
@@ -543,6 +556,7 @@ const App = () => {
               />
             </div>
 
+            
             <div
               className="submit-btn"
               style={{
@@ -565,6 +579,8 @@ const App = () => {
                 Submit
               </button>
             </div>
+
+            
           </div>
         </form>
       </section>

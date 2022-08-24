@@ -19542,14 +19542,24 @@
   "ast": {
     "absolutePath": "project:/contracts/CrimeReport.sol",
     "exportedSymbols": {
-      "CrimeReport": [587]
+      "CrimeReport": [
+        587
+      ]
     },
     "id": 588,
     "nodeType": "SourceUnit",
     "nodes": [
       {
         "id": 1,
-        "literals": ["solidity", ">=", "0.7", ".0", "<", "0.9", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.7",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "0:33:0"
       },
@@ -19561,7 +19571,9 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 587,
-        "linearizedBaseContracts": [587],
+        "linearizedBaseContracts": [
+          587
+        ],
         "name": "CrimeReport",
         "nameLocation": "48:11:0",
         "nodeType": "ContractDefinition",
@@ -20353,7 +20365,9 @@
                 "pathNode": {
                   "id": 61,
                   "name": "MESSAGE",
-                  "nameLocations": ["3232:7:0"],
+                  "nameLocations": [
+                    "3232:7:0"
+                  ],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 8,
                   "src": "3232:7:0"
@@ -20390,7 +20404,9 @@
                 "pathNode": {
                   "id": 65,
                   "name": "Crime",
-                  "nameLocations": ["3312:5:0"],
+                  "nameLocations": [
+                    "3312:5:0"
+                  ],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 50,
                   "src": "3312:5:0"
@@ -20433,7 +20449,9 @@
               "pathNode": {
                 "id": 69,
                 "name": "Statistics",
-                "nameLocations": ["3341:10:0"],
+                "nameLocations": [
+                  "3341:10:0"
+                ],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 59,
                 "src": "3341:10:0"
@@ -20487,7 +20505,9 @@
                   "pathNode": {
                     "id": 73,
                     "name": "Crime",
-                    "nameLocations": ["3428:5:0"],
+                    "nameLocations": [
+                      "3428:5:0"
+                    ],
                     "nodeType": "IdentifierPath",
                     "referencedDeclaration": 50,
                     "src": "3428:5:0"
@@ -20550,7 +20570,9 @@
                   "pathNode": {
                     "id": 79,
                     "name": "Crime",
-                    "nameLocations": ["3510:5:0"],
+                    "nameLocations": [
+                      "3510:5:0"
+                    ],
                     "nodeType": "IdentifierPath",
                     "referencedDeclaration": 50,
                     "src": "3510:5:0"
@@ -20580,7 +20602,9 @@
               "src": "4188:1647:0",
               "statements": [
                 {
-                  "assignments": [114],
+                  "assignments": [
+                    114
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -20603,7 +20627,9 @@
                         "pathNode": {
                           "id": 112,
                           "name": "Crime",
-                          "nameLocations": ["4202:5:0"],
+                          "nameLocations": [
+                            "4202:5:0"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 50,
                           "src": "4202:5:0"
@@ -22025,7 +22051,9 @@
                   "src": "5270:28:0"
                 },
                 {
-                  "assignments": [254],
+                  "assignments": [
+                    254
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -23720,7 +23748,9 @@
                       "pathNode": {
                         "id": 362,
                         "name": "Crime",
-                        "nameLocations": ["6291:5:0"],
+                        "nameLocations": [
+                          "6291:5:0"
+                        ],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 50,
                         "src": "6291:5:0"
@@ -23869,7 +23899,9 @@
                     "pathNode": {
                       "id": 374,
                       "name": "Crime",
-                      "nameLocations": ["6435:5:0"],
+                      "nameLocations": [
+                        "6435:5:0"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 50,
                       "src": "6435:5:0"
@@ -24189,7 +24221,9 @@
                       "pathNode": {
                         "id": 403,
                         "name": "Crime",
-                        "nameLocations": ["6903:5:0"],
+                        "nameLocations": [
+                          "6903:5:0"
+                        ],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 50,
                         "src": "6903:5:0"
@@ -24339,7 +24373,9 @@
                       "pathNode": {
                         "id": 418,
                         "name": "Crime",
-                        "nameLocations": ["7070:5:0"],
+                        "nameLocations": [
+                          "7070:5:0"
+                        ],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 50,
                         "src": "7070:5:0"
@@ -24527,7 +24563,9 @@
               "src": "7411:120:0",
               "statements": [
                 {
-                  "assignments": [451],
+                  "assignments": [
+                    451
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -24960,7 +24998,9 @@
                     "pathNode": {
                       "id": 472,
                       "name": "Statistics",
-                      "nameLocations": ["7614:10:0"],
+                      "nameLocations": [
+                        "7614:10:0"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 59,
                       "src": "7614:10:0"
@@ -24990,7 +25030,9 @@
               "src": "7748:506:0",
               "statements": [
                 {
-                  "assignments": [489],
+                  "assignments": [
+                    489
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -25082,7 +25124,9 @@
                   "src": "7759:26:0"
                 },
                 {
-                  "assignments": [496],
+                  "assignments": [
+                    496
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -25174,7 +25218,9 @@
                   "src": "7796:26:0"
                 },
                 {
-                  "assignments": [503],
+                  "assignments": [
+                    503
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -25653,7 +25699,9 @@
                   },
                   "id": 548,
                   "initializationExpression": {
-                    "assignments": [518],
+                    "assignments": [
+                      518
+                    ],
                     "declarations": [
                       {
                         "constant": false,
