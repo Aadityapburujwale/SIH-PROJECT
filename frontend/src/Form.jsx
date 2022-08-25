@@ -71,6 +71,7 @@ const App = () => {
     let currDate = new Date(date);
     currDate = currDate.getTime().toString();
 
+    let todaysDate = new Date(date);
     // regarding suspect
     let suspect = [];
     if (suspectName && suspectRadio) {
@@ -130,7 +131,8 @@ const App = () => {
         vehicle, // regarding vehicle
         victim, // regarding victim
         ipfsHash, // store ipfs hash here
-        fileNames
+        fileNames,
+        todaysDate
       )
         .then(() => {
           alert("Tip Submitted successfully anonymously");

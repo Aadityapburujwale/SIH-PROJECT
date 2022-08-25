@@ -160,9 +160,11 @@ contract CrimeReport{
                          string[] memory _vehicleInfoAnswers,
                          string[] memory _victimInfoAnswers,
                          string memory _ipfsHash,
-                         string[] memory _fileNames
-                        ) external {
-                            
+                         string[] memory _fileNames,
+                         string memory _date
+                        ) external returns(bool){
+
+                        if(!countTipsOfUsers(_date)) return false; 
 
          Crime memory crime;     
          crime.crimeId = crimes.length;   
@@ -217,12 +219,13 @@ contract CrimeReport{
             stateCases.uttarPradeshCases++;
         }else if(equal(_location[0],"Pondicherry")){
             stateCases.pondicherryCases++;
-        }else if(equal(_location[0],"Tamilnadu")){
+        }else if(equal(_location[0],"Tamil Nadu")){
 		stateCases.tamilnaduCases++;
 	    }
 
     totalActiveCases++;
 
+        return true;
     }
 
 
