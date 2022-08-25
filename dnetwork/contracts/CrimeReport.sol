@@ -1,5 +1,6 @@
 pragma solidity >= 0.7.0 < 0.9.0;
 
+
 contract CrimeReport{
 
 /* Array Of Feedback in another stuct not supported yet.
@@ -123,10 +124,17 @@ contract CrimeReport{
     struct Statistics{
         uint16 murderCases;
         uint16 theftCases;
-	uint16 drugsCases;
-	uint16 harassmentCases;
+	    uint16 drugsCases;
+	    uint16 harassmentCases;
     }
 
+    struct StateCases{
+        uint16 maharashtraCases;
+        uint16 tamilnaduCases;
+        uint16 pondicherryCases;
+        uint16 uttarPradeshCases;
+    }
+    StateCases stateCases;
     // active cases counter 
     uint16 totalActiveCases;
 
@@ -201,7 +209,17 @@ contract CrimeReport{
             stats.drugsCases++;
         }else if(equal(_crimeType,"Harassment")){
 		stats.harassmentCases++;
-	}
+        }
+
+        if(equal(_location[0],"Maharashtra")){
+            stateCases.maharashtraCases++;
+        }else if(equal(_location[0],"Uttar Pradesh")){
+            stateCases.uttarPradeshCases++;
+        }else if(equal(_location[0],"Pondicherry")){
+            stateCases.pondicherryCases++;
+        }else if(equal(_location[0],"Tamilnadu")){
+		stateCases.tamilnaduCases++;
+	    }
 
     totalActiveCases++;
 
@@ -276,6 +294,11 @@ contract CrimeReport{
     function getActiveDeativeCases() public view returns(uint16,uint16){
     return (totalActiveCases,uint16(totalCrimes()-totalActiveCases));
  }
+
+  // Get crime Statistics of states
+  function getCrimeStatistics() public view returns(StateCases memory) {
+      return (stateCases);
+  }
 
   function compare(string memory _a, string memory _b) public pure returns (int) {
         bytes memory a = bytes(_a);
