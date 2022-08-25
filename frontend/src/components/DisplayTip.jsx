@@ -1,3 +1,9 @@
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+
 // react components , hooks
 import React, { useEffect, useState } from "react";
 
@@ -10,10 +16,7 @@ import Contract from "../Contract";
 // bootstrap components
 import { Button, Card, ListGroup } from "react-bootstrap";
 
-// web3 storage api
-
-function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
-  // useNavigate returns a function through which we can route to another route in functions
+export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
   const navigate = useNavigate();
 
   const [feedback, setFeedback] = useState("");
@@ -88,155 +91,185 @@ function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
     }
   }
 
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
-    // just rendering a card component to display a tip every time
-
-    <Card>
-      <Card.Header>Crime type name : {currTip.crimeType}</Card.Header>
-
-      <Card.Body>
-        <ListGroup variant="flush">
-          <ListGroup.Item></ListGroup.Item>
-          <ListGroup.Item>Date : {date}</ListGroup.Item>
-          <ListGroup.Item>City Name : {currTip.location[0]} </ListGroup.Item>
-          <ListGroup.Item>
-            Crime Location : {currTip.location[0]}
-          </ListGroup.Item>
-          <ListGroup.Item></ListGroup.Item>
-        </ListGroup>
-        {/* Things to rendered when a user click on a show more button */}
-        {isSuspectKnown && (
-          <>
-            <ListGroup variant="flush">
-              <ListGroup.Item></ListGroup.Item>
-              <ListGroup.Item>
-                Suspect Name : {suspectData.suspectName}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Suspect Age : {suspectData.suspectAge}{" "}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Suspect Gender : {suspectData.suspectGender}
-              </ListGroup.Item>
-              <ListGroup.Item></ListGroup.Item>
-            </ListGroup>
-          </>
-        )}
-        {/* **** if victim is known by tip provider ***** */}
-        {isVictimKnown && (
-          <>
-            <ListGroup variant="flush">
-              <ListGroup.Item></ListGroup.Item>
-              <ListGroup.Item>
-                Victim Name :{victimData.victimName}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Victim Age :{victimData.victimAge}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Victim Gender :{victimData.victimGender}
-              </ListGroup.Item>
-              <ListGroup.Item></ListGroup.Item>
-            </ListGroup>
-          </>
-        )}
-        {/* **** if there is any vehicle involved in a crime location ***** */}
-        {isVehiclePresent && (
-          <>
-            <ListGroup variant="flush">
-              <ListGroup.Item></ListGroup.Item>
-              <ListGroup.Item>
-                Vehicle State :{vehicleData.vehicleState}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                Vehicle plate Number :{vehicleData.vehiclePlateNumber}{" "}
-              </ListGroup.Item>
-            </ListGroup>
-          </>
-        )}
-        <ListGroup variant="flush">
-          <ListGroup.Item> Description : </ListGroup.Item>
-          <Card.Text>{currTip.crimeDesc}</Card.Text>
-        </ListGroup>
-        {/* ******************************************************************* */}
-        {/* display an media that is attached to the crime tip */}
-        {isMediaPresent &&
-          currTip.fileNames.map((fileName, index) => {
-            // url is passed as src of every file in
-
-            return (
-              <img
-                src={`https://${currTip.ipfsHash}.ipfs.w3s.link/${fileName}`}
-                alt="Tip Image"
-                key={index}
-                style={{ width: "500px", height: "500px" }}
-              />
-            );
-          })}
-        {/* ***************************************************************** */}
-        {/* display feedback if any present */}
-        {feedbacks.length > 0 && (
-          <>
-            <ListGroup variant="flush">
-              <ListGroup.Item> This are the feedbacks : </ListGroup.Item>
-              {feedbacks.map((currFeedBack, index) => {
-                return (
-                  <ListGroup.Item key={index}>
-                    No {index + 1} : {currFeedBack}
-                  </ListGroup.Item>
-                );
-              })}
-            </ListGroup>
-          </>
-        )}
-        {isAdminLoggedIn ? (
-          <h1>Make converstation with the tip provider you are an admin</h1>
-        ) : (
-          !isTipIsOfCurrentUser && (
-            <form>
-              <label htmlFor="feedback">
-                Do You Have Any Information Regarding This :{" "}
-              </label>
-
-              <br />
-              <textarea
-                value={feedback}
-                id="feedback"
-                cols="30"
-                rows="4"
-                onChange={(e) => {
-                  setFeedback(e.target.value);
-                }}
-              ></textarea>
-              <br />
-              <button type="submit" onClick={handleSubmitFeedback}>
-                Submit feedback
-              </button>
-            </form>
-          )
-        )}
-        <Button
-          variant="secondary"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Show Less
-        </Button>{" "}
-        {isAdminLoggedIn && (
-          // show This Remove Tip button only if the cop is logged in
-          <Button
-            variant="danger"
-            onClick={() => {
-              closeCase();
-            }}
+    <Box sx={{ width: "100%", typography: "body1" }}>
+      <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <TabList
+            onChange={handleChange}
+            aria-label="lab API tabs example"
+            centered
           >
-            Deactivate Case
-          </Button>
-        )}
-      </Card.Body>
-    </Card>
+            <Tab label="Details" value="1" />
+            <Tab label="Media" value="2" />
+            <Tab label="Feedbacks" value="3" />
+            <Tab label="Location" value="4" />
+          </TabList>
+        </Box>
+        <TabPanel value="1">
+          <>
+            <Card>
+              <Card.Header>Crime type name : {currTip.crimeType}</Card.Header>
+
+              <Card.Body>
+                <ListGroup variant="flush">
+                  <ListGroup.Item></ListGroup.Item>
+                  <ListGroup.Item>Date : {date}</ListGroup.Item>
+                  <ListGroup.Item>
+                    City Name : {currTip.location[0]}{" "}
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    Crime Location : {currTip.location[0]}
+                  </ListGroup.Item>
+                  <ListGroup.Item></ListGroup.Item>
+                </ListGroup>
+                {/* Things to rendered when a user click on a show more button */}
+                {isSuspectKnown && (
+                  <>
+                    <ListGroup variant="flush">
+                      <ListGroup.Item></ListGroup.Item>
+                      <ListGroup.Item>
+                        Suspect Name : {suspectData.suspectName}
+                      </ListGroup.Item>
+                      <ListGroup.Item>
+                        Suspect Age : {suspectData.suspectAge}{" "}
+                      </ListGroup.Item>
+                      <ListGroup.Item>
+                        Suspect Gender : {suspectData.suspectGender}
+                      </ListGroup.Item>
+                      <ListGroup.Item></ListGroup.Item>
+                    </ListGroup>
+                  </>
+                )}
+                {/* **** if victim is known by tip provider ***** */}
+                {isVictimKnown && (
+                  <>
+                    <ListGroup variant="flush">
+                      <ListGroup.Item></ListGroup.Item>
+                      <ListGroup.Item>
+                        Victim Name :{victimData.victimName}
+                      </ListGroup.Item>
+                      <ListGroup.Item>
+                        Victim Age :{victimData.victimAge}
+                      </ListGroup.Item>
+                      <ListGroup.Item>
+                        Victim Gender :{victimData.victimGender}
+                      </ListGroup.Item>
+                      <ListGroup.Item></ListGroup.Item>
+                    </ListGroup>
+                  </>
+                )}
+                {/* **** if there is any vehicle involved in a crime location ***** */}
+                {isVehiclePresent && (
+                  <>
+                    <ListGroup variant="flush">
+                      <ListGroup.Item></ListGroup.Item>
+                      <ListGroup.Item>
+                        Vehicle State :{vehicleData.vehicleState}
+                      </ListGroup.Item>
+                      <ListGroup.Item>
+                        Vehicle plate Number :{vehicleData.vehiclePlateNumber}{" "}
+                      </ListGroup.Item>
+                    </ListGroup>
+                  </>
+                )}
+                <ListGroup variant="flush">
+                  <ListGroup.Item> Description : </ListGroup.Item>
+                  <Card.Text>{currTip.crimeDesc}</Card.Text>
+                </ListGroup>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Show Less
+                </Button>{" "}
+                {isAdminLoggedIn && (
+                  // show This Remove Tip button only if the cop is logged in
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      closeCase();
+                    }}
+                  >
+                    Delete
+                  </Button>
+                )}
+              </Card.Body>
+            </Card>
+          </>
+        </TabPanel>
+        <TabPanel value="2">
+          {isMediaPresent ? (
+            currTip.fileNames.map((fileName, index) => {
+              // url is passed as src of every file in
+
+              return (
+                <img
+                  src={`https://${currTip.ipfsHash}.ipfs.w3s.link/${fileName}`}
+                  alt="Tip Image"
+                  key={index}
+                  style={{ width: "500px", height: "500px" }}
+                />
+              );
+            })
+          ) : (
+            <h1>don't have any media</h1>
+          )}
+        </TabPanel>
+        <TabPanel value="3">
+          <>
+            {feedbacks.length > 0 ? (
+              <>
+                <ListGroup variant="flush">
+                  <ListGroup.Item> This are the feedbacks : </ListGroup.Item>
+                  {feedbacks.map((currFeedBack, index) => {
+                    return (
+                      <ListGroup.Item key={index}>
+                        No {index + 1} : {currFeedBack}
+                      </ListGroup.Item>
+                    );
+                  })}
+                </ListGroup>
+              </>
+            ) : (
+              <h1>Don't Have Any Feedback</h1>
+            )}
+            {!isTipIsOfCurrentUser && (
+              <form>
+                <label htmlFor="feedback">
+                  Do You Have Any Information Regarding This :{" "}
+                </label>
+
+                <br />
+                <textarea
+                  value={feedback}
+                  id="feedback"
+                  cols="30"
+                  rows="4"
+                  onChange={(e) => {
+                    setFeedback(e.target.value);
+                  }}
+                ></textarea>
+                <br />
+                <button type="submit" onClick={handleSubmitFeedback}>
+                  Submit feedback
+                </button>
+              </form>
+            )}
+          </>
+        </TabPanel>
+        <TabPanel value="fourth item">
+          <h1>display crime location here</h1>
+        </TabPanel>
+      </TabContext>
+    </Box>
   );
 }
-
-export default DisplayTip;

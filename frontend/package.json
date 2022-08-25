@@ -24,7 +24,8 @@
     "web3.storage": "4.3.0",
     "parcel-bundler": "^1.6.1",
     "react-google-map-picker": "1.2.3",
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "@mui/lab": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
