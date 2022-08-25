@@ -296,7 +296,7 @@ contract CrimeReport{
  }
 
   // Get crime Statistics of states
-  function getCrimeStatistics() public view returns(StateCases memory) {
+  function getStateStatistics() public view returns(StateCases memory) {
       return (stateCases);
   }
 
