@@ -300,6 +300,7 @@ contract CrimeReport{
       return (stateCases);
   }
 
+
   function compare(string memory _a, string memory _b) public pure returns (int) {
         bytes memory a = bytes(_a);
         bytes memory b = bytes(_b);
@@ -323,9 +324,15 @@ contract CrimeReport{
         return compare(_a, _b) == 0;
     }
 
-    
+    mapping(string=>mapping(address=>uint8)) countTipsPerDay;
 
-    
+    function countTipsOfUsers(string memory _date)public returns(bool){
+        if(countTipsPerDay[_date][msg.sender] >=3) return false;
+
+        countTipsPerDay[_date][msg.sender]++;
+
+        return true;
+    }
 
 }
 
