@@ -4,6 +4,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
+import Map from "./Map"
 import Grid from "@mui/material/Grid";
 
 // react components , hooks
@@ -220,8 +221,8 @@ export default function DisplayMyTip({ currTip }) {
           <h1>conversation</h1>
         </TabPanel>
 
-        <TabPanel value="fourth item">
-          <Grid></Grid>
+        <TabPanel value="5">
+          <Map/>
         </TabPanel>
       </TabContext>
     </Box>

@@ -4,6 +4,8 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
+import Map from "./Map";
+
 // react components , hooks
 import React, { useEffect, useState } from "react";
 
@@ -15,6 +17,7 @@ import Contract from "../Contract";
 
 // bootstrap components
 import { Button, Card, ListGroup } from "react-bootstrap";
+import DisplayMap from "./Map";
 
 export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
   const navigate = useNavigate();
@@ -277,7 +280,7 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
         </TabPanel>
 
         <TabPanel value="4">
-          <h1>display crime location here</h1>
+          <Map stateName={currTip.location[0]} cityName={currTip.location[1]} lat={currTip.location[2]} lng={currTip.location[3]}/>
         </TabPanel>
 
         {isAdminLoggedIn && <TabPanel value="5"></TabPanel>}

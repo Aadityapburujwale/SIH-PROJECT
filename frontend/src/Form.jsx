@@ -54,8 +54,9 @@ const App = () => {
 
   // This states are used to store the location information like , lattitude , longitude , state , city of crime
 
-  const [lat , setLat] = useState(12.8996);
-  const [lng , setLng] = useState(80.2209);
+  
+  const [lat , setLat] = useState(12);
+  const [lng , setLng] = useState(80);
   const [stateName , setStateName] = useState("");
   const [cityName , setCityName] = useState("");
 
@@ -113,7 +114,9 @@ const App = () => {
     // set the location here like , lattitude , longitude , state and city
 
 
-    let location = [stateName , cityName , lat, lng];
+    console.log("inside " + lat);
+    console.log("inside " + lng);
+    let location = [stateName , cityName , lat.toString(), lng.toString()];
     
     
     try {
