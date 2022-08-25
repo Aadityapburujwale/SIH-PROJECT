@@ -35,7 +35,7 @@ function Tip() {
 
   async function closeCase() {
     await Contract.closeCase(currTip.crimeId._hex);
-    navigate("/");
+    navigate("/AdminHome");
   }
 
   return (

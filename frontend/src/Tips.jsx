@@ -23,7 +23,6 @@ export default function AutoGrid({ isAdminLoggedIn, isUserConnected }) {
       try {
         if (Contract) {
           const allTips = await Contract.getCrimes();
-          console.log(allTips);
           setTips(allTips);
         }
       } catch (error) {

@@ -104,11 +104,14 @@ export default function DisplayMyTip({ currTip }) {
         </Box>
         <TabPanel value="1">
           <Card>
-            <Card.Header>Crime type name : {currTip.crimeType}</Card.Header>
+            <Card.Header>Status : {currTip.isActive}</Card.Header>
 
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item></ListGroup.Item>
+                <ListGroup.Item>
+                  Crime Type : {currTip.crimeTyps}
+                </ListGroup.Item>
                 <ListGroup.Item>Date : {date}</ListGroup.Item>
                 <ListGroup.Item>
                   City Name : {currTip.location[0]}{" "}
