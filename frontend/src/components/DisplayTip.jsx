@@ -224,49 +224,55 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
             <h1>don't have any media</h1>
           )}
         </TabPanel>
-        <TabPanel value="3">
-          <>
-            {feedbacks.length > 0 ? (
-              <>
-                <ListGroup variant="flush">
-                  <ListGroup.Item> This are the feedbacks : </ListGroup.Item>
-                  {feedbacks.map((currFeedBack, index) => {
-                    return (
-                      <ListGroup.Item key={index}>
-                        No {index + 1} : {currFeedBack}
-                      </ListGroup.Item>
-                    );
-                  })}
-                </ListGroup>
-              </>
-            ) : (
-              <h1>Don't Have Any Feedback</h1>
-            )}
-            {!isTipIsOfCurrentUser && (
-              <form>
-                <label htmlFor="feedback">
-                  Do You Have Any Information Regarding This :{" "}
-                </label>
 
-                <br />
-                <textarea
-                  value={feedback}
-                  id="feedback"
-                  cols="30"
-                  rows="4"
-                  onChange={(e) => {
-                    setFeedback(e.target.value);
-                  }}
-                ></textarea>
-                <br />
-                <button type="submit" onClick={handleSubmitFeedback}>
-                  Submit feedback
-                </button>
-              </form>
-            )}
-          </>
-        </TabPanel>
-        <TabPanel value="fourth item">
+        {isAdminLoggedIn ? (
+          <TabPanel value="3">conversatio table</TabPanel>
+        ) : (
+          <TabPanel value="3">
+            <>
+              {feedbacks.length > 0 ? (
+                <>
+                  <ListGroup variant="flush">
+                    <ListGroup.Item> This are the feedbacks : </ListGroup.Item>
+                    {feedbacks.map((currFeedBack, index) => {
+                      return (
+                        <ListGroup.Item key={index}>
+                          No {index + 1} : {currFeedBack}
+                        </ListGroup.Item>
+                      );
+                    })}
+                  </ListGroup>
+                </>
+              ) : (
+                <h1>Don't Have Any Feedback</h1>
+              )}
+              {!isTipIsOfCurrentUser && (
+                <form>
+                  <label htmlFor="feedback">
+                    Do You Have Any Information Regarding This :{" "}
+                  </label>
+
+                  <br />
+                  <textarea
+                    value={feedback}
+                    id="feedback"
+                    cols="30"
+                    rows="4"
+                    onChange={(e) => {
+                      setFeedback(e.target.value);
+                    }}
+                  ></textarea>
+                  <br />
+                  <button type="submit" onClick={handleSubmitFeedback}>
+                    Submit feedback
+                  </button>
+                </form>
+              )}
+            </>
+          </TabPanel>
+        )}
+
+        <TabPanel value="4">
           <h1>display crime location here</h1>
         </TabPanel>
       </TabContext>
