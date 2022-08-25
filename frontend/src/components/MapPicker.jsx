@@ -4,13 +4,13 @@ import MapPicker from "react-google-map-picker";
 
 import axios from "axios";
 
-const DefaultLocation = { lat: 11, lng: 79 };
+const DefaultLocation = { lat: 12.8996, lng: 80.2209 };
 const DefaultZoom = 10;
 
 const App = ({ lat, setLat, lng, setLng, setStateName, setCityName }) => {
   const [defaultLocation, setDefaultLocation] = useState(DefaultLocation);
 
-  console.log(defaultLocation);
+  // console.log(defaultLocation);
 
   const [location, setLocation] = useState({lat : lat , lng : lng})
   const [zoom, setZoom] = useState(DefaultZoom);

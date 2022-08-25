@@ -54,8 +54,8 @@ const App = () => {
 
   // This states are used to store the location information like , lattitude , longitude , state , city of crime
 
-  const [lat , setLat] = useState(11);
-  const [lng , setLng] = useState(35);
+  const [lat , setLat] = useState(12.8996);
+  const [lng , setLng] = useState(80.2209);
   const [stateName , setStateName] = useState("");
   const [cityName , setCityName] = useState("");
 

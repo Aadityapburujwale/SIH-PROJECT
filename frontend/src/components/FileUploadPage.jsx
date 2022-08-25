@@ -26,7 +26,7 @@ function FileUploadPage({
     e.preventDefault();
 
     function getAccessToken() {
-      return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDgyQzMwOEU0Q2JENDZiMjJBNTEwOTNDNmUyNzY3MTkxYWY2ODFFQzciLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjEzMTY1ODk1MjksIm5hbWUiOiJwcm9qZWN0IHRva2VuIn0.0nLlkq9N_jjL-KVofRYUgb-E4q-OXAinKrqryE0jGnc";
+      return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDExODFkQjQzQUM2YTFmREI5OWE3MjdiOTExMUU0YjAzNTExZTZmODYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjA2MTY0MTgxMDQsIm5hbWUiOiJkZWZpIn0.5vQx7yMdU45A65sLj9tyo1dI9Vyb93FdZIz0XxoiADg";
     }
 
     function makeStorageClient() {
@@ -37,6 +37,7 @@ function FileUploadPage({
       const client = makeStorageClient();
       const cid = await client.put(files);
       console.log("cid : " + cid);
+      alert("File Uploaded Successfully! CID is " + cid );
       return cid;
     }
 

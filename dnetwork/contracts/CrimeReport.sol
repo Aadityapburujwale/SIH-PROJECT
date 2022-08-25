@@ -1,6 +1,5 @@
 pragma solidity >= 0.7.0 < 0.9.0;
 
-
 contract CrimeReport{
 
 /* Array Of Feedback in another stuct not supported yet.
@@ -20,7 +19,7 @@ contract CrimeReport{
 
     // Conversation Model
     struct MESSAGE{
-        uint256 id;
+        // uint256 id;
         string from;
         string message;
     }
@@ -132,7 +131,7 @@ contract CrimeReport{
     uint16 totalActiveCases;
 
     // Crime ID Wise Comversation
-    mapping(uint256 => MESSAGE) private conversations;
+    mapping(uint256 => MESSAGE[]) private conversations;
 
     // List Of All Crimes that reported
     Crime[] private crimes;
@@ -257,8 +256,15 @@ contract CrimeReport{
 
   // Conversation of admin to crime reporter.
   function sendMessage(uint256 _crimeId,string memory _message, string memory _from) public{
-      uint256 id = conversations[_crimeId].id + 1;
-      conversations[_crimeId] =  MESSAGE(id,_from,_message);
+      MESSAGE memory currMessage;
+      currMessage.message = _message;
+      currMessage.from = _from;
+      conversations[_crimeId].push(currMessage);
+  }
+
+  // Get Conversation of admin & crime reporter.
+  function getMessages(uint256 _crimeId)  public view returns(MESSAGE[] memory){
+     return conversations[_crimeId];
   }
 
   // Get crime Statistics
