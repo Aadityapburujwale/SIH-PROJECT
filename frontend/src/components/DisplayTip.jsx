@@ -231,7 +231,7 @@ function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
               closeCase();
             }}
           >
-            Delete
+            Deactivate Case
           </Button>
         )}
       </Card.Body>

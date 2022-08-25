@@ -65,15 +65,21 @@ export default function AdminHome() {
     };
 
     const fetchCrimeReports = async () => {
+
+      const reportedData = await Contract.getCrimeStatistics();
+      // const hexToDecimal = parseInt(reportedData[0]._hex, 16);
+
+      console.log(reportedData);
+
       try {
         if (Contract) {
           // take data from the blockchain
           setNumberOfCrimesReported({
-            labels: ["Murder", "Robbery", "Burglary"],
+            labels: ["Murder", "Theft", "Drug Possession" , "Harassement"],
             datasets: [
               {
                 label: "Count Of Crimes Reported",
-                data: [12, 19, 302],
+                data: reportedData.map(data => data),
                 backgroundColor: [
                   "rgba(255, 99, 132, 0.2)",
                   "rgba(54, 162, 235, 0.2)",
@@ -95,15 +101,18 @@ export default function AdminHome() {
     };
 
     const fetchStatuses = async () => {
+
+      const activeDeactiveData = await Contract.getActiveDeativeCases();
+
       try {
         if (Contract) {
           // take data from the blockchain
           setStatuses({
-            labels: ["Active", "InAcive"],
+            labels: ["Active", "InActive"],
             datasets: [
               {
                 label: "Status Of Cases",
-                data: [12, 19],
+                data: [activeDeactiveData[0],activeDeactiveData[1]],
                 backgroundColor: [
                   "rgba(153, 102, 255, 0.2)",
                   "rgba(255, 159, 64, 0.2)",

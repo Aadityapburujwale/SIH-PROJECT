@@ -227,18 +227,21 @@ const App = () => {
                 }}
               >
                 <option value>Select</option>
-                <option>Robbery</option>
-                <option>CyberCr ime</option>
-                <option>Burglary</option>
+                <option>Theft</option>
+                <option>Drugs</option>
+                <option>Murder</option>
+                <option>Harassment</option>
               </select>
 
-              {crimeType === "CyberCrime" ? (
-                <h1>cyber</h1>
-              ) : crimeType === "Robbery" ? (
-                <h1>robbery</h1>
-              ) : crimeType === "Burglary" ? (
-                <h3>burglary</h3>
-              ) : null}
+              {crimeType === "Harassment" ? (
+                <h1>Harassment</h1>
+              ) : crimeType === "Drugs" ? (
+                <h1>Drugs</h1>
+              ) : crimeType === "Murder" ? (
+                <h3>Murder</h3>
+              ) : crimeType === "Theft" ? (
+                <h1>Theft</h1>
+              ): null}
             </div>
             <br />
             <br />

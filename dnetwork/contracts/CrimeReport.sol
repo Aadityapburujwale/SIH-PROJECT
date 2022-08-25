@@ -122,11 +122,14 @@ contract CrimeReport{
     // Statistics Model
 
     struct Statistics{
-        uint murderCases;
-        uint theftCases;
-	uint drugsCases;
-	uint harassmentCases;
+        uint16 murderCases;
+        uint16 theftCases;
+	uint16 drugsCases;
+	uint16 harassmentCases;
     }
+
+    // active cases counter 
+    uint16 totalActiveCases;
 
     // Crime ID Wise Comversation
     mapping(uint256 => MESSAGE) private conversations;
@@ -197,9 +200,11 @@ contract CrimeReport{
             stats.theftCases++;
         }else if(equal(_crimeType,"Drugs")){
             stats.drugsCases++;
-        }else if(equal(_crimeType,"HarassmentCases")){
+        }else if(equal(_crimeType,"Harassment")){
 		stats.harassmentCases++;
 	}
+
+    totalActiveCases++;
 
     }
 
@@ -246,6 +251,7 @@ contract CrimeReport{
 
    // Function for admin to close case.
   function closeCase(uint32 _crimeId) public {
+    totalActiveCases--;
     crimes[_crimeId].isCaseActive = false;
   }
 
@@ -257,9 +263,13 @@ contract CrimeReport{
 
   // Get crime Statistics
   function getCrimeStatistics() public view returns(Statistics memory) {
-      return stats;
+      return (stats);
   }
  
+ // Get get Active Deative Cases 
+    function getActiveDeativeCases() public view returns(uint16,uint16){
+    return (totalActiveCases,uint16(totalCrimes()-totalActiveCases));
+ }
 
   function compare(string memory _a, string memory _b) public pure returns (int) {
         bytes memory a = bytes(_a);
@@ -283,6 +293,10 @@ contract CrimeReport{
     function equal(string memory _a, string memory _b) public pure returns (bool) {
         return compare(_a, _b) == 0;
     }
+
+    
+
+    
 
 }
 
