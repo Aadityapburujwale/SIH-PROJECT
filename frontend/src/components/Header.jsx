@@ -67,7 +67,7 @@ export default function Header({
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link to={"/"}>
-              <Button variant="none">Griffins</Button>
+              <Button variant="none">BlockChain Based Anonymous Reporting System</Button>
             </Link>
           </Typography>
 

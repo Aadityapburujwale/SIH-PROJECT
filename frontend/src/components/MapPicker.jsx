@@ -4,14 +4,18 @@ import MapPicker from "react-google-map-picker";
 
 import axios from "axios";
 
-const DefaultLocation = { lat: 11.764266743145665, lng: 79.68822061197824 };
+const DefaultLocation = { lat: 11, lng: 79 };
 const DefaultZoom = 10;
 
 const App = ({ lat, setLat, lng, setLng, setStateName, setCityName }) => {
   const [defaultLocation, setDefaultLocation] = useState(DefaultLocation);
 
-  const [location, setLocation] = useState({ lat: lat, lng: lng });
+  console.log(defaultLocation);
+
+  const [location, setLocation] = useState({lat : lat , lng : lng})
   const [zoom, setZoom] = useState(DefaultZoom);
+
+  console.log(location);
 
   async function handleChangeLocation(selectedLat, selectedLng) {
     console.log(selectedLat);
@@ -54,14 +58,11 @@ const App = ({ lat, setLat, lng, setLng, setStateName, setCityName }) => {
 
   return (
     <>
-      <label>Zoom:</label>
-      <input type="text" value={zoom} disabled />
-
       <MapPicker
         defaultLocation={defaultLocation}
         zoom={zoom}
         mapTypeId="roadmap"
-        style={{ height: "700px" }}
+        style={{ height: "300px" }}
         onChangeLocation={handleChangeLocation}
         onChangeZoom={handleChangeZoom}
         apiKey="AIzaSyAkBhTU6Tc8FNdu64ZRG4rPm2bin7H7OOI"

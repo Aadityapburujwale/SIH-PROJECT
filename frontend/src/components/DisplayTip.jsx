@@ -109,7 +109,7 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
             <Tab label="Details" value="1" />
             <Tab label="Media" value="2" />
             <Tab label="Feedbacks" value="3" />
-            <Tab label="Location" value="4" />
+            <Tab label="Crime Location" value="4" />
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -216,7 +216,7 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
                   src={`https://${currTip.ipfsHash}.ipfs.w3s.link/${fileName}`}
                   alt="Tip Image"
                   key={index}
-                  style={{ width: "500px", height: "500px" }}
+                  style={{ width: "auto" }}
                 />
               );
             })
