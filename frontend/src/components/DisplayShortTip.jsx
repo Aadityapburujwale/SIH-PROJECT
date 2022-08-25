@@ -25,15 +25,16 @@ function DisplayShortTip({ currTip, isAdminLoggedIn }) {
     // just rendering a card component to display a tip every time
 
     <Card>
-      <Card.Header>Crime type name : {currTip.crimeType}</Card.Header>
+      <Card.Header>
+        Status : {currTip.isCaseActive ? "Active" : "Deactive"}
+      </Card.Header>
 
       <Card.Body>
         <ListGroup variant="flush">
+          <ListGroup.Item>Crime type name : {currTip.crimeType}</ListGroup.Item>
           <ListGroup.Item>Date : {date}</ListGroup.Item>
           <ListGroup.Item>State Name : {currTip.location[0]} </ListGroup.Item>
-          <ListGroup.Item>
-            City Name : {currTip.location[1]}
-          </ListGroup.Item>
+          <ListGroup.Item>City Name : {currTip.location[1]}</ListGroup.Item>
         </ListGroup>
 
         <Link

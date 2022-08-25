@@ -110,16 +110,20 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
             <Tab label="Media" value="2" />
             <Tab label="Feedbacks" value="3" />
             <Tab label="Crime Location" value="4" />
+            {isAdminLoggedIn && <Tab label="Conversation" value="5" />}
           </TabList>
         </Box>
         <TabPanel value="1">
           <>
             <Card>
-              <Card.Header>Crime type name : {currTip.crimeType}</Card.Header>
+              <Card.Header>Status : {currTip.isActive}</Card.Header>
 
               <Card.Body>
                 <ListGroup variant="flush">
                   <ListGroup.Item></ListGroup.Item>
+                  <ListGroup.Item>
+                    Crime Name : {currTip.crimeType}
+                  </ListGroup.Item>
                   <ListGroup.Item>Date : {date}</ListGroup.Item>
                   <ListGroup.Item>
                     City Name : {currTip.location[0]}{" "}
@@ -186,7 +190,11 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
                 <Button
                   variant="secondary"
                   onClick={() => {
-                    navigate("/");
+                    if (isAdminLoggedIn) {
+                      navigate("/AdminHome");
+                    } else {
+                      navigate("/");
+                    }
                   }}
                 >
                   Show Less
@@ -199,7 +207,7 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
                       closeCase();
                     }}
                   >
-                    Delete
+                    Close Case
                   </Button>
                 )}
               </Card.Body>
@@ -224,6 +232,7 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
             <h1>don't have any media</h1>
           )}
         </TabPanel>
+
         <TabPanel value="3">
           <>
             {feedbacks.length > 0 ? (
@@ -240,9 +249,9 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
                 </ListGroup>
               </>
             ) : (
-              <h1>Don't Have Any Feedback</h1>
+              <h1>Don't Have Any Feedbacks</h1>
             )}
-            {!isTipIsOfCurrentUser && (
+            {!isTipIsOfCurrentUser && !isAdminLoggedIn && (
               <form>
                 <label htmlFor="feedback">
                   Do You Have Any Information Regarding This :{" "}
@@ -266,9 +275,12 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
             )}
           </>
         </TabPanel>
-        <TabPanel value="fourth item">
+
+        <TabPanel value="4">
           <h1>display crime location here</h1>
         </TabPanel>
+
+        {isAdminLoggedIn && <TabPanel value="5"></TabPanel>}
       </TabContext>
     </Box>
   );
