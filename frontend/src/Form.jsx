@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import FileUploadPage from "./components/FileUploadPage";
 
 const App = () => {
+
   // useNavigate returns a function through which we can route to another route in functions
   const navigate = useNavigate();
 
@@ -184,9 +185,11 @@ const App = () => {
               alignItems: "center",
             }}
           >
+            let currDate = currDate.getTime().toString();
             <div className="data-time">
               <input
                 type="date"
+                max = {new Date().toISOString().split('T')[0]}
                 onChange={(e) => setdate(e.target.value)}
                 style={{
                   width: "50rem",
