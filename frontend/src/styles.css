@@ -12,7 +12,6 @@ body {
   margin-top: 10vh;
 
   /* overflow-x: hidden; */
-  
 }
 
 .sidebarContainer {
@@ -105,7 +104,7 @@ body {
 
 #Name {
   padding-top: 1vh;
-  text-shadow: 3px 2px 2px rgba(124,129,128);
+  text-shadow: 3px 2px 2px rgba(124, 129, 128);
   font-family: "Lucida Console", Monaco, monospace;
   font-family: "Lucida Console", Monaco, monospace;
   font-size: 17px;
@@ -123,7 +122,7 @@ body {
   margin-top: 4vh;
   color: #2a2e30;
   /* box-shadow: 2px 2px 7px 1px #1C6EA4; */
-  box-shadow: 3px 3px 7px 1px #382F46;
+  box-shadow: 3px 3px 7px 1px #382f46;
 }
 
 a {
@@ -132,7 +131,7 @@ a {
 }
 a:hover {
   text-decoration: none;
-  color: rgb(98, 176, 207)
+  color: rgb(98, 176, 207);
 }
 
 .nput {
@@ -144,14 +143,14 @@ a:hover {
   margin-bottom: 2vh;
 }
 .NavBar {
-  background: linear-gradient(to right, #8041F2 , #3095ED);
+  background: linear-gradient(to right, #8041f2, #3095ed);
 }
 .form_data {
   background: linear-gradient(to bottom, #885e97, #5e2c6e);
-  
+
   /* box-shadow: 2px 8px 7px 1px #000000; */
-  
-   /* transition: 0.5s; */
+
+  /* transition: 0.5s; */
   /* backdrop-filter: blur(15px); */
   /* background: rgba(255, 255, 255, 0.05); */
   /* box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3); */
@@ -165,7 +164,19 @@ a:hover {
   align-items: center;
   justify-content: center;
   padding-left: 8vh;
-  background-color: #1C6EA4;
+  background-color: #1c6ea4;
   padding-bottom: 6vh;
   margin: 2vh;
+}
+
+.wrap-login100 {
+  background: linear-gradient(to bottom, #5d326c, #350048);
+  box-shadow: 7px 7px rgb(0 0 0 / 30%);
+}
+
+.login100-form-title {
+  font-size: 30px;
+  color: white;
+  font-family: serif;
+  font-weight: bold;
 }
