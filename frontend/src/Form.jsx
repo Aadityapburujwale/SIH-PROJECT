@@ -183,6 +183,7 @@ const App = () => {
                 Select Date Of Crime
               </Typography>
               <input
+                max={new Date().toISOString().split('T')[0]}
                 type="date"
                 onChange={(e) => setdate(e.target.value)}
                 style={{

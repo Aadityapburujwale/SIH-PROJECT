@@ -28,31 +28,31 @@ function DisplayShortTip({ currTip, isAdminLoggedIn }) {
   return (
     // just rendering a card component to display a tip every time
 
-    <Card>
-      <Card.Header>
-        Status : {currTip.isCaseActive ? "Active" : "Deactive"}
-      </Card.Header>
+    <Card className="cdh">
+    <Card.Header style={{}}>
+      Status : {currTip.isCaseActive ? "Active" : "Deactive"}
+    </Card.Header>
 
-      <Card.Body >
-        <ListGroup variant="flush">
-          <ListGroup.Item>Crime type name : {currTip.crimeType}</ListGroup.Item>
-          <ListGroup.Item>Date : {date}</ListGroup.Item>
-          <ListGroup.Item>State Name : {currTip.location[0]} </ListGroup.Item>
-          <ListGroup.Item>City Name : {currTip.location[1]}</ListGroup.Item>
-        </ListGroup>
+    <Card.Body >
+      <ListGroup variant="flush">
+        <ListGroup.Item>Crime type name : {currTip.crimeType}</ListGroup.Item>
+        <ListGroup.Item>Date : {date}</ListGroup.Item>
+        <ListGroup.Item>State Name : {currTip.location[0]} </ListGroup.Item>
+        <ListGroup.Item>City Name : {currTip.location[1]}</ListGroup.Item>
+      </ListGroup>
 
-        <Link
-          to="/Tip"
-          style={{ textDecoration: "none" }}
-          state={{
-            currTip: currTip,
-            isAdminLoggedIn: isAdminLoggedIn,
-          }}
-        >
-          <Button variant="primary">Open</Button>
-        </Link>
-      </Card.Body>
-    </Card>
+      <Link
+        to="/Tip"
+        style={{ textDecoration: "none" }}
+        state={{
+          currTip: currTip,
+          isAdminLoggedIn: isAdminLoggedIn,
+        }}
+      >
+        <Button variant="primary">Open</Button>
+      </Link>
+    </Card.Body>
+  </Card>
   );
 }
 
