@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 // bootstrap components
 import { Button, Card, ListGroup } from "react-bootstrap";
+import "../styles.css"
 
 // css
 import "../styles.css";
@@ -27,12 +28,12 @@ function DisplayShortTip({ currTip, isAdminLoggedIn }) {
   return (
     // just rendering a card component to display a tip every time
 
-    <Card className="cdh">
-      <Card.Header style={{}}>
+    <Card>
+      <Card.Header>
         Status : {currTip.isCaseActive ? "Active" : "Deactive"}
       </Card.Header>
 
-      <Card.Body>
+      <Card.Body >
         <ListGroup variant="flush">
           <ListGroup.Item>Crime type name : {currTip.crimeType}</ListGroup.Item>
           <ListGroup.Item>Date : {date}</ListGroup.Item>
