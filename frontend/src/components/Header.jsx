@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SendIcon from "@mui/icons-material/Send";
 import LoginIcon from "@mui/icons-material/Login";
 import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
+import "../styles.css"
 
 // react-router-dom components
 import { Link } from "react-router-dom";
@@ -66,9 +67,15 @@ export default function Header({
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to={"/"}>
-              <Button variant="none">BlockChain Based Anonymous Reporting System</Button>
-            </Link>
+            {/* <Link to={"/"}>
+              <Button variant="none" color="inherit">BlockChain Based Anonymous Reporting System</Button>
+            </Link> */}
+            <div id="Name">
+              <Link to={"/"}> 
+                  <h4>Blockchain Based Anonymous Reporting System</h4>
+              </Link>
+            
+            </div>
           </Typography>
 
           {isAdminLoggedIn ? (
