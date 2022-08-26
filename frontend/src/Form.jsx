@@ -15,6 +15,7 @@ import FormLabel from "@mui/material/FormLabel";
 // The useNavigate hook returns a function that lets you navigate programmatically,
 import { useNavigate } from "react-router-dom";
 import FileUploadPage from "./components/FileUploadPage";
+import { withTheme } from "@emotion/react";
 
 const App = () => {
   // useNavigate returns a function through which we can route to another route in functions
@@ -162,10 +163,11 @@ const App = () => {
         style={{
           alignContent: "center",
           alignItems: "center",
-          margin: "2rem",
-          //  display:"flex",
+          margin: "2rem 35vh ",
+          display:"flex",
           justifyContent: "center",
-          backgroundColor: "white",
+          color:"White",
+          
         }}
       >
         <form>
@@ -179,10 +181,11 @@ const App = () => {
             }}
           >
             <div className="data-time">
-              <Typography variant="subtitle1" display="block" gutterBottom>
+              <Typography style={{fontSize:22, color:"white"}} variant="subtitle1" display="block" gutterBottom>
                 Select Date Of Crime
               </Typography>
               <input
+                className="nput"
                 max={new Date().toISOString().split('T')[0]}
                 type="date"
                 onChange={(e) => setdate(e.target.value)}
@@ -196,10 +199,11 @@ const App = () => {
             </div>
             <br />
 
-            <Typography variant="subtitle1" display="block" gutterBottom>
+            <Typography style={{fontSize:25, color:"white"}} variant="subtitle1" display="block" gutterBottom>
               Select State and City In Map
             </Typography>
             <div
+              className="mappa"
               style={{
                 width: "50rem",
                 // height: "500px",
@@ -231,6 +235,7 @@ const App = () => {
               </Typography>
 
               <select
+                className="nput"
                 value={crimeType}
                 onChange={(e) => setCrimeType(e.target.value)}
                 style={{
@@ -248,7 +253,7 @@ const App = () => {
                 <option>Harassment</option>
               </select>
 
-              {crimeType === "Harassment" ? (
+              {/* {crimeType === "Harassment" ? (
                 <h1>Harassment</h1>
               ) : crimeType === "Drugs" ? (
                 <h1>Drugs</h1>
@@ -256,7 +261,7 @@ const App = () => {
                 <h3>Murder</h3>
               ) : crimeType === "Theft" ? (
                 <h1>Theft</h1>
-              ) : null}
+              ) : null} */}
             </div>
             <br />
             <br />
@@ -285,12 +290,16 @@ const App = () => {
                   setCrimeDes(e.target.value);
                 }}
               /> */}
+
+              
               <TextField
+                
                 id="crimeDes"
-                style={{
+                sx={{
                   marginTop: "1rem",
                   width: "50rem",
                   height: "70px",
+                  backgroundColor:"white",
                 }}
                 label="Enter the crime description"
                 value={crimeDes}
@@ -301,6 +310,8 @@ const App = () => {
                 rows={2}
                 maxRows={4}
               />
+            
+              
             </div>
 
             {/* number of suspects information */}
@@ -324,6 +335,7 @@ const App = () => {
               /> */}
 
               <TextField
+                
                 label="How Many Criminals Are There"
                 type="number"
                 id="numberOfSuspects"
@@ -333,9 +345,10 @@ const App = () => {
                 }}
                 style={{
                   width: "50rem",
-                  height: "40px",
+                  height: "50px",
                   fontSize: "20px",
                   marginTop: "-40px",
+                  backgroundColor:"white",
                 }}
               />
             </div>
@@ -356,6 +369,7 @@ const App = () => {
               <FormControl
                 style={{
                   marginTop: "-30px",
+                  
                 }}
               >
                 <RadioGroup
@@ -394,8 +408,10 @@ const App = () => {
                     placeholder="Enter the suspect name"
                     style={{
                       width: "50rem",
-                      height: "40px",
+                      height: "50px",
                       fontSize: "20px",
+                      backgroundColor:"white",
+                
                     }}
                     value={suspectName}
                     onChange={(e) => {
@@ -449,8 +465,9 @@ const App = () => {
                     style={{
                       marginTop: "1rem",
                       width: "50rem",
-                      height: "40px",
+                      height: "50px",
                       fontSize: "20px",
+                      background: "white",
                     }}
                   />
                 </>
@@ -487,10 +504,13 @@ const App = () => {
               {vehicleInvolved && (
                 <>
                   <div
+                    id="hre"
                     style={
                       {
                         // marginRight:"auto",
                         // marginLeft:"auto"
+                        background: "white",
+                        
                       }
                     }
                   >

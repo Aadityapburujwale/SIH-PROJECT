@@ -56,7 +56,7 @@ export default function Header({
 
   return (
     <Box sx={{ flexBox: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#063970" }}>
+      <AppBar className="NavBar" position="fixed" sx={{top:0}}>
         <Toolbar>
           <IconButton
             size="large"
