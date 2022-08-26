@@ -7,6 +7,9 @@ import { Link } from "react-router-dom";
 // bootstrap components
 import { Button, Card, ListGroup } from "react-bootstrap";
 
+// css
+import "../styles.css";
+
 function DisplayShortTip({ currTip, isAdminLoggedIn }) {
   // useNavigate returns a function through which we can route to another route in functions
 

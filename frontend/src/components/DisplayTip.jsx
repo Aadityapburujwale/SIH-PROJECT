@@ -131,7 +131,9 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
         <TabPanel value="1">
           <>
             <Card>
-              <Card.Header>Status : {currTip.isActive}</Card.Header>
+              <Card.Header>
+                Status : {currTip.isCaseActive ? "Active" : "Deactive"}
+              </Card.Header>
 
               <Card.Body>
                 <ListGroup variant="flush">

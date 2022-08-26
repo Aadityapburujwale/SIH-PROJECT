@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 // bootstrap components
 import { Button, Card, ListGroup } from "react-bootstrap";
 
+import "../styles.css";
+
 function DisplayMyShortTip({ currTip }) {
   // useNavigate returns a function through which we can route to another route in functions
 
@@ -24,14 +26,14 @@ function DisplayMyShortTip({ currTip }) {
   return (
     // just rendering a card component to display a tip every time
 
-    <Card>
+    <Card className="cdh">
       <Card.Header>
         Status : {currTip.isCaseActive ? "Active" : "Deactive"}
       </Card.Header>
 
       <Card.Body>
         <ListGroup variant="flush">
-          <ListGroup.Item>Crime type name : {currTip.crimeType}</ListGroup.Item>
+          <ListGroup.Item>Crime Type : {currTip.crimeType}</ListGroup.Item>
           <ListGroup.Item>Date : {date}</ListGroup.Item>
           <ListGroup.Item>State Name : {currTip.location[0]} </ListGroup.Item>
           <ListGroup.Item>City Name : {currTip.location[1]}</ListGroup.Item>
