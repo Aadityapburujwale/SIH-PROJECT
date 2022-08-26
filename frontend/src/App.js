@@ -10,6 +10,7 @@ import Form from "./Form";
 import Tip from "./components/Tip";
 import MyTip from "./components/MyTip";
 import MyProfile from "./MyProfile";
+import SpeechToText from "./SpeechToText";
 
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -62,6 +63,7 @@ export default function App() {
         <Route exact path="/Tip" element={<Tip />} />
         <Route exact path="/MyProfile" element={<MyProfile />} />
         <Route exact path="/MyProfile/MyTip" element={<MyTip />} />
+        <Route exact path="/SpeechToText" element={<SpeechToText />} />
       </Routes>
     </div>
   );

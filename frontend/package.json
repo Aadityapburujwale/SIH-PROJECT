@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "react-speech-recognition": "3.9.1",
     "@emotion/react": "11.10.0",
     "@emotion/styled": "11.10.0",
     "@emotion/unitless": "0.8.0",
