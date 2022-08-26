@@ -52,22 +52,22 @@ export default function AdminHome() {
     ],
   });
 
-  const [stateData , setStateData] = useState({
+  const [stateData, setStateData] = useState({
     labels: ["Maharashtra", "Uttar Pradesh", "Tamilnadu", "Pondicherry"],
-    
-            datasets: [
-              {
-                label: "Status of States",
-                data: [0,0,0,0],
-                backgroundColor: [
-                  "rgba(153, 102, 255, 0.2)",
-                  "rgba(255, 159, 64, 0.2)",
-                ],
-                borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-                borderWidth: 1,
-              },
-            ],
-  })
+
+    datasets: [
+      {
+        label: "Status of States",
+        data: [0, 0, 0, 0],
+        backgroundColor: [
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+        ],
+        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+        borderWidth: 1,
+      },
+    ],
+  });
 
   useEffect(() => {
     const getTips = async () => {
@@ -82,7 +82,6 @@ export default function AdminHome() {
     };
 
     const fetchCrimeReports = async () => {
-
       const reportedData = await Contract.getCrimeStatistics();
       // const hexToDecimal = parseInt(reportedData[0]._hex, 16);
 
@@ -92,11 +91,11 @@ export default function AdminHome() {
         if (Contract) {
           // take data from the blockchain
           setNumberOfCrimesReported({
-            labels: ["Murder", "Theft", "Drug Possession" , "Harassement"],
+            labels: ["Murder", "Theft", "Drug Possession", "Harassement"],
             datasets: [
               {
                 label: "Count Of Crimes Reported",
-                data: reportedData.map(data => data),
+                data: reportedData.map((data) => data),
                 backgroundColor: [
                   "rgba(255, 99, 132, 0.2)",
                   "rgba(54, 162, 235, 0.2)",
@@ -117,10 +116,7 @@ export default function AdminHome() {
       }
     };
 
-    
-
     const fetchStatuses = async () => {
-
       const activeDeactiveData = await Contract.getActiveDeativeCases();
 
       try {
@@ -131,7 +127,7 @@ export default function AdminHome() {
             datasets: [
               {
                 label: "Status Of Cases",
-                data: [activeDeactiveData[0],activeDeactiveData[1]],
+                data: [activeDeactiveData[0], activeDeactiveData[1]],
                 backgroundColor: [
                   "rgba(153, 102, 255, 0.2)",
                   "rgba(255, 159, 64, 0.2)",
@@ -148,7 +144,6 @@ export default function AdminHome() {
     };
 
     const fetchStateStatistics = async () => {
-
       const stateStatistics = await Contract.getStateStatistics();
       console.log(stateStatistics);
 
@@ -156,11 +151,16 @@ export default function AdminHome() {
         if (Contract) {
           // take data from the blockchain
           setStateData({
-            labels: ["Maharashtra", "Uttar Pradesh", "Tamilnadu", "Pondicherry"],
+            labels: [
+              "Maharashtra",
+              "Uttar Pradesh",
+              "Tamilnadu",
+              "Pondicherry",
+            ],
             datasets: [
               {
                 label: "Status Of States",
-                data: stateStatistics.map(data => data),
+                data: stateStatistics.map((data) => data),
                 backgroundColor: [
                   "rgba(153, 102, 255, 0.2)",
                   "rgba(255, 159, 64, 0.2)",

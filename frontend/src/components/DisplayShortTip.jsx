@@ -24,8 +24,8 @@ function DisplayShortTip({ currTip, isAdminLoggedIn }) {
   return (
     // just rendering a card component to display a tip every time
 
-    <Card>
-      <Card.Header>
+    <Card className="cdh">
+      <Card.Header style={{}}>
         Status : {currTip.isCaseActive ? "Active" : "Deactive"}
       </Card.Header>
 
