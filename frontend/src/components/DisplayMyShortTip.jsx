@@ -27,7 +27,7 @@ function DisplayMyShortTip({ currTip }) {
     // just rendering a card component to display a tip every time
 
     <Card className="cdh">
-      <Card.Header>
+      <Card.Header style={{backgroundColor:"black",color:"aliceblue"}}>
         Status : {currTip.isCaseActive ? "Active" : "Deactive"}
       </Card.Header>
 

@@ -195,19 +195,21 @@ export default function DisplayMyTip({ currTip }) {
           </Card>
         </TabPanel>
         <TabPanel value="2">
-          {isMediaPresent ? (
-            currTip.fileNames.map((fileName, index) => {
-              // url is passed as src of every file in
-
-              return (
-                <img
-                  src={`https://${currTip.ipfsHash}.ipfs.w3s.link/${fileName}`}
-                  alt="Tip Image"
-                  key={index}
-                  style={{ width: "auto" }}
-                />
-              );
-            })
+        {isMediaPresent ? (
+            <Grid container justifyContent="center">
+              {currTip.fileNames.map((fileName, index) => {
+                return (
+                  <Grid item>
+                    <img
+                      src={`https://${currTip.ipfsHash}.ipfs.w3s.link/${fileName}`}
+                      alt="Tip Image"
+                      key={index}
+                      style={{ width: "500px" }}
+                    />
+                  </Grid>
+                );
+              })}
+            </Grid>
           ) : (
             <h1>don't have any media</h1>
           )}
