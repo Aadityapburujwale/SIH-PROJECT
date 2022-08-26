@@ -12,7 +12,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SendIcon from "@mui/icons-material/Send";
 import LoginIcon from "@mui/icons-material/Login";
 import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
-import "../styles.css"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import "../styles.css";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
@@ -71,10 +72,9 @@ export default function Header({
               <Button variant="none" color="inherit">BlockChain Based Anonymous Reporting System</Button>
             </Link> */}
             <div id="Name">
-              <Link to={"/"}> 
-                  <h4>Blockchain Based Anonymous Reporting System</h4>
+              <Link to={"/"}>
+                <h4>Blockchain Based Anonymous Reporting System</h4>
               </Link>
-            
             </div>
           </Typography>
 
@@ -100,12 +100,19 @@ export default function Header({
               {isUserConnected ? (
                 <>
                   <Link to="/Form">
-                    <Button endIcon={<SendIcon />} variant="contained">
+                    <Button
+                      endIcon={<SendIcon />}
+                      variant="contained"
+                      sx={{ margin: "5px" }}
+                    >
                       Submit Tip
                     </Button>
                   </Link>
                   <Link to="/MyProfile">
-                    <Button endIcon={<SendIcon />} variant="contained">
+                    <Button
+                      startIcon={<AccountCircleIcon />}
+                      variant="contained"
+                    >
                       View Profile
                     </Button>
                   </Link>
@@ -118,7 +125,7 @@ export default function Header({
                     connectWallet();
                   }}
                   color="success"
-                  sx={{ marginLeft: "5px" }}
+                  sx={{ margin: "5px" }}
                 >
                   Connect Wallet
                 </Button>
@@ -129,7 +136,7 @@ export default function Header({
                   startIcon={<LocalPoliceIcon />}
                   variant="contained"
                   color="success"
-                  sx={{ marginLeft: "5px" }}
+                  sx={{ margin: "5px" }}
                 >
                   COP Login
                 </Button>

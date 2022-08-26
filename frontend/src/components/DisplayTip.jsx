@@ -4,6 +4,8 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
+import { Grid } from "@mui/material";
+
 import Map from "./Map";
 
 // react components , hooks
@@ -201,8 +203,9 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
                   </>
                 )}
                 <ListGroup variant="flush">
-                  <ListGroup.Item> Description : </ListGroup.Item>
-                  <Card.Text>{currTip.crimeDesc}</Card.Text>
+                  <ListGroup.Item>
+                    Description : <Card.Text>{currTip.crimeDesc}</Card.Text>
+                  </ListGroup.Item>
                 </ListGroup>
                 <Button
                   variant="secondary"
@@ -233,18 +236,20 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
         </TabPanel>
         <TabPanel value="2">
           {isMediaPresent ? (
-            currTip.fileNames.map((fileName, index) => {
-              // url is passed as src of every file in
-
-              return (
-                <img
-                  src={`https://${currTip.ipfsHash}.ipfs.w3s.link/${fileName}`}
-                  alt="Tip Image"
-                  key={index}
-                  style={{ width: "auto" }}
-                />
-              );
-            })
+            <Grid container justifyContent="center">
+              {currTip.fileNames.map((fileName, index) => {
+                return (
+                  <Grid item>
+                    <img
+                      src={`https://${currTip.ipfsHash}.ipfs.w3s.link/${fileName}`}
+                      alt="Tip Image"
+                      key={index}
+                      style={{ width: "500px" }}
+                    />
+                  </Grid>
+                );
+              })}
+            </Grid>
           ) : (
             <h1>don't have any media</h1>
           )}

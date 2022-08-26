@@ -7,10 +7,19 @@ import Contract from "./Contract";
 // material ui
 import Grid from "@mui/material/Grid";
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
+import React from "react";
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { Pie } from "react-chartjs-2";
+import { PolarArea } from "react-chartjs-2";
+
+ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 export default function AdminHome() {
   const [tips, setTips] = useState([]);
@@ -164,7 +173,7 @@ export default function AdminHome() {
                 backgroundColor: [
                   "rgba(153, 102, 255, 0.2)",
                   "rgba(255, 159, 64, 0.2)",
-                ],   
+                ],
                 borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
                 borderWidth: 1,
               },
@@ -188,12 +197,15 @@ export default function AdminHome() {
 
       <Grid container justifyContent="center">
         <Grid item lg={3}>
-          <Pie data={numberOfCrimesReported} />
+          <h3>Crimes Reported</h3>
+          <PolarArea data={numberOfCrimesReported} />
         </Grid>
         <Grid item lg={3}>
+          <h3>Active And Deactive Cases</h3>
           <Pie data={statuses} />
         </Grid>
         <Grid item lg={3}>
+          <h3>States</h3>
           <Pie data={stateData} />
         </Grid>
       </Grid>

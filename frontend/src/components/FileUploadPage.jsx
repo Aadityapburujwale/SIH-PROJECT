@@ -1,8 +1,8 @@
 import React from "react";
-
+import { Button } from "@mui/material";
 // web3storage
 import { Web3Storage } from "web3.storage";
-
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 function FileUploadPage({
   selectedFiles,
   setSelectedFiles,
@@ -37,7 +37,7 @@ function FileUploadPage({
       const client = makeStorageClient();
       const cid = await client.put(files);
       console.log("cid : " + cid);
-      alert("File Uploaded Successfully! CID is " + cid );
+      alert("File Uploaded Successfully! CID is " + cid);
       return cid;
     }
 
@@ -52,9 +52,14 @@ function FileUploadPage({
   return (
     <div>
       <input type="file" name="file" onChange={changeHandler} />
-      <button type="submit" onClick={handleSubmission}>
-        Submit
-      </button>
+      <Button
+        variant="contained"
+        size="small"
+        type="submit"
+        onClick={handleSubmission}
+      >
+        <CloudUploadIcon />
+      </Button>
     </div>
   );
 }
