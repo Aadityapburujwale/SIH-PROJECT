@@ -78,9 +78,15 @@ export default function LoginForm({ setIsAdminLoggedIn }) {
           <div className="wrap-login100">
             <div className="login100-pic js-tilt" data-tilt>
               <img
+                src={process.env.PUBLIC_URL + "/sji.png"}
+                alt="IMG"
+                style={{ marginLeft: "11%", width: "220px" }}
+              />
+
+              {/* <img
                 src="https://colorlib.com/etc/lf/Login_v1/images/img-01.png"
                 alt="IMG"
-              />
+              /> */}
             </div>
             <form
               onSubmit={handleSubmit}
