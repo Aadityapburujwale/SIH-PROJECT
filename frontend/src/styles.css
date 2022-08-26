@@ -7,9 +7,11 @@ html {
   font-family: "Montserrat", sans-serif;
 }
 body {
-  background: #eee;
-  background-color: #fafdff;
-  overflow-x: hidden;
+  background: rgba(121, 75, 163, 0.8);
+  /* background: linear-gradient(to bottom, #5d326c, #350048); */
+  margin-top: 10vh;
+
+  /* overflow-x: hidden; */
   
 }
 
@@ -109,7 +111,7 @@ body {
   font-size: 17px;
   letter-spacing: 0.8px;
   word-spacing: 0.6px;
-  color: #ffffff;
+  color: #fffefe;
   font-weight: 700;
   text-decoration: none;
   font-style: normal;
@@ -119,13 +121,13 @@ body {
 
 .cdh {
   margin-top: 4vh;
-  color: #647c88;
+  color: #2a2e30;
   /* box-shadow: 2px 2px 7px 1px #1C6EA4; */
   box-shadow: 3px 3px 7px 1px #382F46;
 }
 
 a {
-  color: #FFF;
+  color: rgb(255, 255, 255);
   text-decoration: none;
 }
 a:hover {
@@ -133,6 +135,37 @@ a:hover {
   color: rgb(98, 176, 207)
 }
 
-.data-time {
+.nput {
+  box-shadow: 2px 2px 7px 1px #84878a;
+}
+
+.mappa {
+  box-shadow: 4px 4px 7px 2px #8c8f92;
+  margin-bottom: 2vh;
+}
+.NavBar {
+  background: linear-gradient(to right, #8041F2 , #3095ED);
+}
+.form_data {
+  background: linear-gradient(to bottom, #885e97, #5e2c6e);
   
+  /* box-shadow: 2px 8px 7px 1px #000000; */
+  
+   /* transition: 0.5s; */
+  /* backdrop-filter: blur(15px); */
+  /* background: rgba(255, 255, 255, 0.05); */
+  /* box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3); */
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+  /* border-top: 1px solid rgba(255, 255, 255, 0.1); */
+  /* border-radius: 30px; */
+}
+
+#hre {
+  box-shadow: 2px 2px 7px 1px #eceff1;
+  align-items: center;
+  justify-content: center;
+  padding-left: 8vh;
+  background-color: #1C6EA4;
+  padding-bottom: 6vh;
+  margin: 2vh;
 }
