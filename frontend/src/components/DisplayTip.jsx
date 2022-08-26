@@ -37,6 +37,11 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
   const [isTipIsOfCurrentUser, setIsTipIsOfCurrentUser] = useState(false);
   const [isMediaPresent, setIsMediaPresent] = useState(true);
 
+  // to keep track the message user want to give the cop
+  const [message, setMessage] = useState("");
+
+  const [messages, setMessages] = useState({});
+
   useEffect(() => {
     // if vehicle present then and then only show vehicle related information
     if (currTip.isVehiclePresent) {
@@ -67,6 +72,13 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
       }
     }
 
+    async function getMessages() {
+      const msgs = await Contract.getMessages(currTip.crimeId);
+
+      setMessages(msgs);
+    }
+
+    getMessages();
     checkTipIsOfUser();
   }, []);
 
@@ -280,10 +292,59 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
         </TabPanel>
 
         <TabPanel value="4">
-          <Map stateName={currTip.location[0]} cityName={currTip.location[1]} lat={currTip.location[2]} lng={currTip.location[3]}/>
+          <Map
+            stateName={currTip.location[0]}
+            cityName={currTip.location[1]}
+            lat={currTip.location[2]}
+            lng={currTip.location[3]}
+          />
         </TabPanel>
 
-        {isAdminLoggedIn && <TabPanel value="5"></TabPanel>}
+        {isAdminLoggedIn && (
+          <TabPanel value="5">
+            {messages.length > 0 ? (
+              messages.map((message, index) => {
+                return (
+                  <p key={index}>
+                    <b>{message.from} : </b>
+                    {message.message}
+                  </p>
+                );
+              })
+            ) : (
+              <h2>Haven't Made the conversation</h2>
+            )}
+
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+
+                // return if message is empty
+                if (!message) {
+                  return;
+                }
+
+                await Contract.sendMessage(currTip.crimeId, message, "Admin");
+
+                setMessages((prevMessages) => {
+                  return [...prevMessages, { from: "Admin", message: message }];
+                });
+
+                setMessage("");
+              }}
+            >
+              <p>enter message : </p>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                }}
+                value={message}
+              />
+              <button type="submit">add message</button>
+            </form>
+          </TabPanel>
+        )}
       </TabContext>
     </Box>
   );
