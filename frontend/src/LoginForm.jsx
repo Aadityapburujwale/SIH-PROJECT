@@ -73,7 +73,6 @@ export default function LoginForm({ setIsAdminLoggedIn }) {
 
   return (
     <>
-      <body style={{ marginTop: "2vh" }}>
         <div className="limiter">
           <div className="container-login100">
             <div className="wrap-login100">
@@ -94,7 +93,7 @@ export default function LoginForm({ setIsAdminLoggedIn }) {
                 className="login100-form validate-form"
               >
                 <span className="login100-form-title">
-                  Police Officer Login
+                  Police Administration
                 </span>
                 <div
                   className="wrap-input100 validate-input"
@@ -148,7 +147,6 @@ export default function LoginForm({ setIsAdminLoggedIn }) {
             </div>
           </div>
         </div>
-      </body>
     </>
   );
 }

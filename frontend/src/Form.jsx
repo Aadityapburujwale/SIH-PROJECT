@@ -363,7 +363,7 @@ const App = () => {
                 marginTop: "2rem",
               }}
             >
-              <p>Do you have info regarding the Suspect?</p>
+              <p style={{color:"white"}}>Do you have info regarding the Suspect?</p>
               <br />
 
               <FormControl
@@ -484,7 +484,7 @@ const App = () => {
                 marginTop: "2rem",
               }}
             >
-              <p>Is There any vehicle involved in crime?</p>
+              <p style={{color:"white"}}>Is There any vehicle involved in crime?</p>
               <input
                 type="radio"
                 name="vehicle"
@@ -613,7 +613,7 @@ const App = () => {
                 marginTop: "0.8rem",
               }}
             >
-              <p>Victim Known?</p>
+              <p style={{color:"white"}}>Victim Known?</p>
               <input
                 type="radio"
                 name="victim"
