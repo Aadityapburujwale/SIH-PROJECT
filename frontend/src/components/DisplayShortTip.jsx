@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 // bootstrap components
 import { Button, Card, ListGroup } from "react-bootstrap";
+import "../styles.css"
 
 function DisplayShortTip({ currTip, isAdminLoggedIn }) {
   // useNavigate returns a function through which we can route to another route in functions
@@ -29,7 +30,7 @@ function DisplayShortTip({ currTip, isAdminLoggedIn }) {
         Status : {currTip.isCaseActive ? "Active" : "Deactive"}
       </Card.Header>
 
-      <Card.Body>
+      <Card.Body >
         <ListGroup variant="flush">
           <ListGroup.Item>Crime type name : {currTip.crimeType}</ListGroup.Item>
           <ListGroup.Item>Date : {date}</ListGroup.Item>

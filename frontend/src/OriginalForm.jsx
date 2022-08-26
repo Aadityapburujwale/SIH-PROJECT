@@ -5,18 +5,14 @@ import React, { useState, useEffect } from "react";
 import Contract from "./Contract";
 
 // components
-import MapPicker from "./components/MapPicker";
-import { Card, TextField, Typography, Button } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+import MapPicker from "./components/MapPicker"
+
 // The useNavigate hook returns a function that lets you navigate programmatically,
 import { useNavigate } from "react-router-dom";
 import FileUploadPage from "./components/FileUploadPage";
 
 const App = () => {
+
   // useNavigate returns a function through which we can route to another route in functions
   const navigate = useNavigate();
 
@@ -32,6 +28,7 @@ const App = () => {
   //   necessary inputs
   const [crimeDes, setCrimeDes] = useState("");
   const [numberOfSuspects, setNumberOfSuspects] = useState("");
+  
 
   //   states to handle the suspect information
   const [suspectName, setSuspectName] = useState("");
@@ -53,12 +50,17 @@ const App = () => {
   const [cid, setCid] = useState("");
   const [selectedFileNames, setSelectedFileNames] = useState([]);
 
+  
+
+
   // This states are used to store the location information like , lattitude , longitude , state , city of crime
 
-  const [lat, setLat] = useState(12.8996);
-  const [lng, setLng] = useState(80.2209);
-  const [stateName, setStateName] = useState("");
-  const [cityName, setCityName] = useState("");
+  
+  const [lat , setLat] = useState(12);
+  const [lng , setLng] = useState(80);
+  const [stateName , setStateName] = useState("");
+  const [cityName , setCityName] = useState("");
+
 
   //    *************************************** Submit Tip Function ****************************************88
   //   funtion to submit tip whenever button from the form is triggered
@@ -70,6 +72,7 @@ const App = () => {
     let currDate = new Date(date);
     currDate = currDate.getTime().toString();
 
+    let todaysDate = new Date(date);
     // regarding suspect
     let suspect = [];
     if (suspectName && suspectRadio) {
@@ -112,8 +115,12 @@ const App = () => {
 
     // set the location here like , lattitude , longitude , state and city
 
-    let location = [stateName, cityName, lat, lng];
 
+    console.log("inside " + lat);
+    console.log("inside " + lng);
+    let location = [stateName , cityName , lat.toString(), lng.toString()];
+    
+    
     try {
       Contract.submitCrime(
         currDate,
@@ -126,14 +133,15 @@ const App = () => {
         victim, // regarding victim
         ipfsHash, // store ipfs hash here
         fileNames,
-        new Date().toString()
+        todaysDate
       )
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           alert("Tip Submitted successfully anonymously");
         })
         .then(() => {
+          // set all the states to be the empty / set all the form fields to be empty when tip is submitted
           setdate("");
+          //   setCrimeLocation("");
           setVehicleInvolved("");
           setVictimeInfo("");
           setSuspectRadio(false);
@@ -157,12 +165,12 @@ const App = () => {
   return (
     <>
       {/* <h1>{date}</h1> */}
-      <Card
+      <section
         className="form_data"
         style={{
           alignContent: "center",
           alignItems: "center",
-          margin: "2rem",
+          margin: "1rem",
           //  display:"flex",
           justifyContent: "center",
           backgroundColor: "white",
@@ -175,15 +183,13 @@ const App = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              marginTop: "1rem",
             }}
           >
+            let currDate = currDate.getTime().toString();
             <div className="data-time">
-              <Typography variant="subtitle1" display="block" gutterBottom>
-                Select Date Of Crime
-              </Typography>
               <input
                 type="date"
+                max = {new Date().toISOString().split('T')[0]}
                 onChange={(e) => setdate(e.target.value)}
                 style={{
                   width: "50rem",
@@ -195,24 +201,15 @@ const App = () => {
             </div>
             <br />
 
-            <Typography variant="subtitle1" display="block" gutterBottom>
-              Select State and City In Map
-            </Typography>
+            <p>Select State and City In Map</p>
             <div
               style={{
-                width: "50rem",
+                width: "500px",
                 // height: "500px",
                 border: "1px solid",
               }}
             >
-              <MapPicker
-                lat={lat}
-                lng={lng}
-                setLat={setLat}
-                setLng={setLng}
-                setCityName={setCityName}
-                setStateName={setStateName}
-              />
+              <MapPicker lat={lat} lng={lng} setLat={setLat} setLng={setLng} setCityName={setCityName} setStateName={setStateName} />
             </div>
 
             {/* **** type of crime **  */}
@@ -220,21 +217,18 @@ const App = () => {
               className="type-of-crime"
               style={{
                 width: "50rem",
-                // border: "1px solid",
+                border: "1px solid",
                 marginTop: "1rem",
               }}
             >
-              {/* <p>What is the type of crime?</p> */}
-              <Typography variant="subtitle1" display="block" gutterBottom>
-                What is the type of crime?
-              </Typography>
+              <p>What is the type of crime?</p>
 
               <select
                 value={crimeType}
                 onChange={(e) => setCrimeType(e.target.value)}
                 style={{
-                  width: "50rem",
-                  height: "40px",
+                  width: "300px",
+                  height: "35px",
                   fontSize: "16.5px",
                   display: "flex",
                   justifyContent: "center",
@@ -255,23 +249,18 @@ const App = () => {
                 <h3>Murder</h3>
               ) : crimeType === "Theft" ? (
                 <h1>Theft</h1>
-              ) : null}
+              ): null}
             </div>
             <br />
             <br />
 
             {/* descript about crime */}
-            <div
-              className="description-crime"
-              style={{
-                marginTop: "-30px",
-              }}
-            >
+            <div className="description-crime">
               <label htmlFor="crimeDes">
                 Enter Information You Have About The Crime Happend :
               </label>
               <br />
-              {/* <textarea
+              <textarea
                 id="crimeDes"
                 placeholder="Enter the crime description"
                 style={{
@@ -283,58 +272,22 @@ const App = () => {
                 onChange={(e) => {
                   setCrimeDes(e.target.value);
                 }}
-              /> */}
-              <TextField
-                id="crimeDes"
-                style={{
-                  marginTop: "1rem",
-                  width: "50rem",
-                  height: "70px",
-                }}
-                label="Enter the crime description"
-                value={crimeDes}
-                onChange={(e) => {
-                  setCrimeDes(e.target.value);
-                }}
-                multiline
-                rows={2}
-                maxRows={4}
               />
             </div>
 
             {/* number of suspects information */}
-            <div
-              style={{
-                marginTop: "1rem",
-              }}
-            >
-              {/* <label htmlFor="numberOfSuspects">
+            <div>
+              <label htmlFor="numberOfSuspects">
                 How Many Criminals Are There :{" "}
-              </label> */}
+              </label>
               <br />
               <br />
-              {/* <input
+              <input
                 type="number"
                 id="numberOfSuspects"
                 value={numberOfSuspects}
                 onChange={(e) => {
                   setNumberOfSuspects(e.target.value);
-                }}
-              /> */}
-
-              <TextField
-                label="How Many Criminals Are There"
-                type="number"
-                id="numberOfSuspects"
-                value={numberOfSuspects}
-                onChange={(e) => {
-                  setNumberOfSuspects(e.target.value);
-                }}
-                style={{
-                  width: "50rem",
-                  height: "40px",
-                  fontSize: "20px",
-                  marginTop: "-40px",
                 }}
               />
             </div>
@@ -344,55 +297,42 @@ const App = () => {
             <div
               className="suspect"
               style={{
-                // border: "1px solid",
+                border: "1px solid",
                 width: "50rem",
-                marginTop: "2rem",
+                marginTop: "0.7rem",
               }}
             >
               <p>Do you have info regarding the Suspect?</p>
               <br />
-
-              <FormControl
-                style={{
-                  marginTop: "-30px",
+              <input
+                id="suspectInfoYes"
+                type="radio"
+                name="suspect"
+                value="yes"
+                onChange={(e) => {
+                  setSuspectRadio(true);
                 }}
-              >
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  // defaultValue="female"
-                  name="radio-buttons-group"
-                >
-                  <FormControlLabel
-                    id="suspectInfoYes"
-                    name="suspect"
-                    value="yes"
-                    onChange={(e) => {
-                      setSuspectRadio(true);
-                    }}
-                    control={<Radio />}
-                    label="YES"
-                  />
-                  <FormControlLabel
-                    id="suspectInfoNo"
-                    name="suspect"
-                    value="no"
-                    onChange={(e) => setSuspectRadio(false)}
-                    control={<Radio />}
-                    label="NO"
-                  />
-                </RadioGroup>
-              </FormControl>
-
+              />
+              <label htmlFor="suspectInfoYes">Yes</label>
+              <input
+                id="suspectInfoNo"
+                type="radio"
+                name="suspect"
+                value="no"
+                onChange={(e) => setSuspectRadio(false)}
+              />
+              <label htmlFor="suspectInfoNo">No</label>
               <br />
               <br />
               {suspectRadio ? (
                 <>
-                  <TextField
+                  <label htmlFor="suspectName">Suspect Name : </label>
+                  <input
                     id="suspectName"
                     type="text"
-                    placeholder="Enter the suspect name"
+                    placeholder="Enter the name"
                     style={{
-                      width: "50rem",
+                      width: "40rem",
                       height: "40px",
                       fontSize: "20px",
                     }}
@@ -403,8 +343,7 @@ const App = () => {
                   />
                   <br />
                   <br />
-
-                  {/* <p>Enter the gender</p> */}
+                  <p>Enter the gender</p>
 
                   <div>
                     <label htmlFor="male">Male</label>
@@ -427,33 +366,19 @@ const App = () => {
                     />
                   </div>
 
-                  {/* <label htmlFor="age">Age Group Of Suspect</label> */}
-                  {/* <input
+                  <label htmlFor="age">Age Group Of Suspect</label>
+                  <input
                     type="number"
                     id="age"
                     value={suspectAge}
                     onChange={(e) => {
                       setSuspectAge(e.target.value);
-                    }}
-                  /> */}
-                  <TextField
-                    type="number"
-                    label="Age Group Of Suspect"
-                    //  placeholder="Enter the Age Group Of Suspect"
-                    id="age"
-                    value={suspectAge}
-                    onChange={(e) => {
-                      setSuspectAge(e.target.value);
-                    }}
-                    style={{
-                      marginTop: "1rem",
-                      width: "50rem",
-                      height: "40px",
-                      fontSize: "20px",
                     }}
                   />
                 </>
-              ) : null}
+              ) : (
+                "."
+              )}
             </div>
 
             {/* ***** if there is any vehicle involved in a crime location ***** */}
@@ -461,9 +386,9 @@ const App = () => {
             <div
               className="vehicle-involved"
               style={{
-                // border: "1px solid",
+                border: "1px solid",
                 width: "50rem",
-                marginTop: "2rem",
+                marginTop: "0.8rem",
               }}
             >
               <p>Is There any vehicle involved in crime?</p>
@@ -485,36 +410,27 @@ const App = () => {
               <br />
               {vehicleInvolved && (
                 <>
-                  <div
-                    style={
-                      {
-                        // marginRight:"auto",
-                        // marginLeft:"auto"
-                      }
-                    }
+                  <p>What is the type of vehicle?</p>
+
+                  <select
+                    value={vehicleType}
+                    onChange={(e) => setVehicleType(e.target.value)}
+                    style={{
+                      width: "300px",
+                      height: "35px",
+                      fontSize: "16.5px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
                   >
-                    <p>What is the type of vehicle?</p>
+                    <option value>Select</option>
+                    <option>Bike</option>
+                    <option>ForWheeler</option>
+                    <option>Truck</option>
+                  </select>
+                  <br />
 
-                    <select
-                      value={vehicleType}
-                      onChange={(e) => setVehicleType(e.target.value)}
-                      style={{
-                        alignItems: "center",
-                        width: "40rem",
-                        height: "40px",
-                        fontSize: "16.5px",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <option value>Select</option>
-                      <option>Bike</option>
-                      <option>ForWheeler</option>
-                      <option>Truck</option>
-                    </select>
-                    <br />
-
-                    {/* <label htmlFor="vehicleState">
+                  <label htmlFor="vehicleState">
                     Enter Passing State Of Vehicle :{" "}
                   </label>
                   <input
@@ -522,24 +438,10 @@ const App = () => {
                     value={vehicleState}
                     id="vehicleState"
                     onChange={(e) => setVehicleState(e.target.value)}
-                  /> */}
-                    <TextField
-                      label="Enter Passing State Of Vehicle"
-                      type="text"
-                      value={vehicleState}
-                      id="vehicleState"
-                      onChange={(e) => setVehicleState(e.target.value)}
-                      style={{
-                        width: "40rem",
-                        height: "40px",
-                        fontSize: "16.5px",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    />
-                    <br />
+                  />
+                  <br />
 
-                    {/* <label htmlFor="vehiclePlateNumber">
+                  <label htmlFor="vehiclePlateNumber">
                     Enter Plate Number of Vehicle :{" "}
                   </label>
 
@@ -557,26 +459,8 @@ const App = () => {
                     onChange={(e) => {
                       setVehiclePlateNumber(e.target.value);
                     }}
-                  /> */}
-                    <TextField
-                      label="Enter Plate Number of Vehicle"
-                      id="vehiclePlateNumber"
-                      type="number"
-                      placeholder="Enter the License Plate No"
-                      style={{
-                        width: "40rem",
-                        height: "40px",
-                        fontSize: "20px",
-                        // marginTop: "1rem",
-                        marginBottom: "1rem",
-                      }}
-                      value={vehiclePlateNumber}
-                      onChange={(e) => {
-                        setVehiclePlateNumber(e.target.value);
-                      }}
-                    />
-                    <br />
-                  </div>
+                  />
+                  <br />
                 </>
               )}
             </div>
@@ -587,7 +471,7 @@ const App = () => {
             <div
               className="victim-info"
               style={{
-                // border: "1px solid",
+                border: "1px solid",
                 width: "50rem",
                 marginTop: "0.8rem",
               }}
@@ -666,7 +550,7 @@ const App = () => {
             <div
               className="media-file"
               style={{
-                // border: "1px solid",
+                border: "1px solid",
                 width: "50rem",
                 marginTop: "0.8rem",
                 height: "5rem",
@@ -683,6 +567,7 @@ const App = () => {
               />
             </div>
 
+            
             <div
               className="submit-btn"
               style={{
@@ -690,27 +575,26 @@ const App = () => {
                 width: "50rem",
                 marginTop: "1rem",
                 height: "3rem",
-                marginBottom: "1rem",
               }}
             >
               {/* button to submit the tip  */}
-              <Button
-                variant="contained"
-                size="large"
+              <button
                 type="submit"
                 style={{
-                  // display: "flex",
+                  display: "flex",
                   margin: "auto",
-                  // padding: "5px",
+                  padding: "5px",
                 }}
                 onClick={submitTip}
               >
                 Submit
-              </Button>
+              </button>
             </div>
+
+            
           </div>
         </form>
-      </Card>
+      </section>
     </>
   );
 };

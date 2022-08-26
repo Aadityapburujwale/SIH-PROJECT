@@ -10,6 +10,7 @@ body {
   background: #eee;
   background-color: #fafdff;
   overflow-x: hidden;
+  
 }
 
 .sidebarContainer {
@@ -45,16 +46,16 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform:translate(-50%, -50%) scale(1.4);
+  transform: translate(-50%, -50%) scale(1.4);
   border-radius: 50%;
   animation: listening infinite 1.5s;
 }
-@keyframes listening{
-  0%{
+@keyframes listening {
+  0% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  100%{
+  100% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(1.4);
   }
@@ -87,7 +88,6 @@ body {
   justify-content: space-between;
   align-items: center;
   padding-bottom: 30px;
-
 }
 .microphone-result-text {
   margin-bottom: 30px;
