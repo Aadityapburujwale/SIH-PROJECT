@@ -4,7 +4,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
-import Map from "./Map"
+import Map from "./Map";
 import Grid from "@mui/material/Grid";
 
 // react components , hooks
@@ -33,6 +33,10 @@ export default function DisplayMyTip({ currTip }) {
   const [victimData, setVictimData] = useState([]);
   const [isMediaPresent, setIsMediaPresent] = useState(false);
 
+  const [message, setMessage] = useState("");
+
+  const [messages, setMessages] = useState("");
+
   // useEffect execute every time whenever the component is rendered
 
   useEffect(() => {
@@ -55,6 +59,14 @@ export default function DisplayMyTip({ currTip }) {
     if (currTip.fileNames.length > 0) {
       setIsMediaPresent(true);
     }
+
+    async function getMessages() {
+      const msgs = await Contract.getMessages(currTip.crimeId);
+
+      setMessages(msgs);
+    }
+
+    getMessages();
   }, []);
 
   // convert date from _hex to Date format
@@ -173,8 +185,9 @@ export default function DisplayMyTip({ currTip }) {
                 </>
               )}
               <ListGroup variant="flush">
-                <ListGroup.Item> Description : </ListGroup.Item>
-                <Card.Text>{currTip.crimeDesc}</Card.Text>
+                <ListGroup.Item>
+                  Description : <Card.Text>{currTip.crimeDesc}</Card.Text>{" "}
+                </ListGroup.Item>
               </ListGroup>
             </Card.Body>
           </Card>
@@ -218,11 +231,51 @@ export default function DisplayMyTip({ currTip }) {
           </>
         </TabPanel>
         <TabPanel value="4">
-          <h1>conversation</h1>
+          {messages.length > 0 ? (
+            messages.map((message, index) => {
+              return (
+                <p key={index}>
+                  <b>{message.from} : </b>
+                  {message.message}
+                </p>
+              );
+            })
+          ) : (
+            <h2>Haven't Made the conversation</h2>
+          )}
+
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+
+              // return if message is empty
+              if (!message) {
+                return;
+              }
+
+              await Contract.sendMessage(currTip.crimeId, message, "User");
+
+              setMessages((prevMessages) => {
+                return [...prevMessages, { from: "User", message: message }];
+              });
+
+              setMessage("");
+            }}
+          >
+            <p>enter message : </p>
+            <input
+              type="text"
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+              value={message}
+            />
+            <button type="submit">add message</button>
+          </form>
         </TabPanel>
 
         <TabPanel value="5">
-          <Map/>
+          <Map />
         </TabPanel>
       </TabContext>
     </Box>
