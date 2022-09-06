@@ -19,7 +19,6 @@ import Contract from "../Contract";
 
 // bootstrap components
 import { Button, Card, ListGroup } from "react-bootstrap";
-import DisplayMap from "./Map";
 
 export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
   const navigate = useNavigate();
@@ -46,6 +45,7 @@ export default function DisplayTip({ currTip, isAdminLoggedIn, closeCase }) {
 
   useEffect(() => {
     // if vehicle present then and then only show vehicle related information
+
     if (currTip.isVehiclePresent) {
       setIsVehiclePresent(true);
       setVehicleData(JSON.parse(currTip.vehicleInfoAnswers[0]));

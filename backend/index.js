@@ -42,10 +42,10 @@ app.post("/", (req, res) => {
   //   }
   // });
 
-  if(username === "admin" && password === "pass"){
-    return res.json({success : true})
-  }else {
-    return res.json({success : false})
+  if (username === "admin" && password === "pass") {
+    return res.json({ success: true });
+  } else {
+    return res.json({ success: false });
   }
 });
 

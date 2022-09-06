@@ -7,18 +7,13 @@ import axios from "axios";
 const DefaultLocation = { lat: 12.8996, lng: 80.2209 };
 const DefaultZoom = 10;
 
-const App = ({ lat, setLat, lng, setLng, setStateName, setCityName }) => {
-
-  
-  const [defaultLocation, setDefaultLocation] = useState({...DefaultLocation});
-
-  const [location, setLocation] = useState({...DefaultLocation})
+const App = ({ setLat, setLng, setStateName, setCityName }) => {
+  const [location, setLocation] = useState({ ...DefaultLocation });
 
   console.log(location);
 
   async function handleChangeLocation(selectedLat, selectedLng) {
-    
-    function retrievePosition() {
+    async function retrievePosition() {
       let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
       let url = `https://api.openweathermap.org/data/2.5/weather?lat=${selectedLat}&lon=${selectedLng}&units=metric&appid=${apiKey}`;
       axios.get(url).then(setTheCityName);
@@ -38,7 +33,7 @@ const App = ({ lat, setLat, lng, setLng, setStateName, setCityName }) => {
       setCityName(response.data.name);
     }
 
-    retrievePosition();
+    await retrievePosition();
 
     setLocation({ lat: selectedLat, lng: selectedLng });
   }
@@ -46,7 +41,7 @@ const App = ({ lat, setLat, lng, setLng, setStateName, setCityName }) => {
   return (
     <>
       <MapPicker
-        defaultLocation={defaultLocation}
+        defaultLocation={DefaultLocation}
         mapTypeId="roadmap"
         style={{ height: "300px" }}
         onChangeLocation={handleChangeLocation}

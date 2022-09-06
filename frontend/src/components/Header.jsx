@@ -57,7 +57,7 @@ export default function Header({
 
   return (
     <Box sx={{ flexBox: 1 }}>
-      <AppBar className="NavBar" position="fixed" sx={{top:0}}>
+      <AppBar className="NavBar" position="fixed" sx={{ top: 0 }}>
         <Toolbar>
           <IconButton
             size="large"

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-// import RobberyQue from "./RobberyQue";
+import React, { useState } from "react";
 
 // import contract through which we can communicate to the blockchain
 import Contract from "./Contract";
@@ -11,11 +10,9 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 // The useNavigate hook returns a function that lets you navigate programmatically,
 import { useNavigate } from "react-router-dom";
 import FileUploadPage from "./components/FileUploadPage";
-import { withTheme } from "@emotion/react";
 
 const App = () => {
   // useNavigate returns a function through which we can route to another route in functions
@@ -67,90 +64,104 @@ const App = () => {
   const submitTip = async (e) => {
     e.preventDefault();
 
-    // converting current date to the timestamp string
-    let currDate = new Date(date);
-    currDate = currDate.getTime().toString();
+    // checking if user already have submitted the form 3 times for current date
 
-    // regarding suspect
-    let suspect = [];
-    if (suspectName && suspectRadio) {
-      let suspectData = {
-        suspectName: suspectName,
-        suspectAge: suspectAge,
-        suspectGender: suspectGender,
-      };
-      suspect.push(JSON.stringify(suspectData));
+    async function checkCountOfUser() {
+      const response = await Contract.checkTipsCountOfUser(
+        new Date().toLocaleDateString()
+      );
+
+      if (!response) {
+        alert("You Have already submitted 3 forms Today");
+        return;
+      } else {
+        // converting current date to the timestamp string
+        let currDate = new Date(date);
+        currDate = currDate.getTime().toString();
+
+        // regarding suspect
+        let suspect = [];
+        if (suspectName && suspectRadio) {
+          let suspectData = {
+            suspectName: suspectName,
+            suspectAge: suspectAge,
+            suspectGender: suspectGender,
+          };
+          suspect.push(JSON.stringify(suspectData));
+        }
+
+        // regarding victim is known by tip provider
+        let victim = [];
+        if (victimName && victimInfo) {
+          let victimData = {
+            victimName: victimName,
+            victimeAge: victimAge,
+            victimGender: victimGender,
+          };
+          victim.push(JSON.stringify(victimData));
+        }
+
+        // regardin vehicle
+        let vehicle = [];
+        if (vehicleInvolved) {
+          let vehicleData = {
+            vehicleState: vehicleState,
+            vehiclePlateNumber: vehiclePlateNumber,
+          };
+          vehicle.push(JSON.stringify(vehicleData));
+        }
+
+        // initially ipfs hash is empty
+        // if user had provided the media then change the hash to cid
+        let ipfsHash = "";
+        let fileNames = selectedFileNames;
+        if (cid) {
+          ipfsHash = cid;
+        }
+
+        // set the location here like , lattitude , longitude , state and city
+
+        let location = [stateName, cityName, lat + "", lng + ""];
+
+        try {
+          Contract.submitCrime(
+            currDate,
+            location,
+            crimeType,
+            [],
+            crimeDes,
+            suspect, // regarding suspect
+            vehicle, // regarding vehicle
+            victim, // regarding victim
+            ipfsHash, // store ipfs hash here
+            fileNames,
+            new Date().toLocaleDateString()
+          )
+            .then((response) => {
+              alert("Tip Submitted successfully anonymously");
+            })
+            .then(() => {
+              setdate("");
+              setVehicleInvolved("");
+              setVictimeInfo("");
+              setSuspectRadio(false);
+              setCrimeDes("");
+              setCrimeType("");
+              setNumberOfSuspects("");
+            })
+            .then(() => {
+              navigate("/");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      }
     }
 
-    // regarding victim is known by tip provider
-    let victim = [];
-    if (victimName && victimInfo) {
-      let victimData = {
-        victimName: victimName,
-        victimeAge: victimAge,
-        victimGender: victimGender,
-      };
-      victim.push(JSON.stringify(victimData));
-    }
-
-    // regardin vehicle
-    let vehicle = [];
-    if (vehicleInvolved) {
-      let vehicleData = {
-        vehicleState: vehicleState,
-        vehiclePlateNumber: vehiclePlateNumber,
-      };
-      vehicle.push(JSON.stringify(vehicleData));
-    }
-
-    // initially ipfs hash is empty
-    // if user had provided the media then change the hash to cid
-    let ipfsHash = "";
-    let fileNames = selectedFileNames;
-    if (cid) {
-      ipfsHash = cid;
-    }
-
-    // set the location here like , lattitude , longitude , state and city
-
-    let location = [stateName, cityName, lat, lng];
-
-    try {
-      Contract.submitCrime(
-        currDate,
-        location,
-        crimeType,
-        [],
-        crimeDes,
-        suspect, // regarding suspect
-        vehicle, // regarding vehicle
-        victim, // regarding victim
-        ipfsHash, // store ipfs hash here
-        fileNames,
-        new Date().toString()
-      )
-        .then((response) => {
-          console.log(response);
-          alert("Tip Submitted successfully anonymously");
-        })
-        .then(() => {
-          setdate("");
-          setVehicleInvolved("");
-          setVictimeInfo("");
-          setSuspectRadio(false);
-          setCrimeDes("");
-          setCrimeType("");
-          setNumberOfSuspects("");
-        })
-        .then(() => {
-          navigate("/");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    await checkCountOfUser();
   };
 
   //   ************************** return ****************************
@@ -164,10 +175,9 @@ const App = () => {
           alignContent: "center",
           alignItems: "center",
           margin: "2rem 35vh ",
-          display:"flex",
+          display: "flex",
           justifyContent: "center",
-          color:"White",
-          
+          color: "White",
         }}
       >
         <form>
@@ -181,12 +191,17 @@ const App = () => {
             }}
           >
             <div className="data-time">
-              <Typography style={{fontSize:22, color:"white"}} variant="subtitle1" display="block" gutterBottom>
+              <Typography
+                style={{ fontSize: 22, color: "white" }}
+                variant="subtitle1"
+                display="block"
+                gutterBottom
+              >
                 Select Date Of Crime
               </Typography>
               <input
                 className="nput"
-                max={new Date().toISOString().split('T')[0]}
+                max={new Date().toISOString().split("T")[0]}
                 type="date"
                 onChange={(e) => setdate(e.target.value)}
                 style={{
@@ -199,7 +214,12 @@ const App = () => {
             </div>
             <br />
 
-            <Typography style={{fontSize:25, color:"white"}} variant="subtitle1" display="block" gutterBottom>
+            <Typography
+              style={{ fontSize: 25, color: "white" }}
+              variant="subtitle1"
+              display="block"
+              gutterBottom
+            >
               Select State and City In Map
             </Typography>
             <div
@@ -291,15 +311,13 @@ const App = () => {
                 }}
               /> */}
 
-              
               <TextField
-                
                 id="crimeDes"
                 sx={{
                   marginTop: "1rem",
                   width: "50rem",
                   height: "70px",
-                  backgroundColor:"white",
+                  backgroundColor: "white",
                 }}
                 label="Enter the crime description"
                 value={crimeDes}
@@ -307,11 +325,9 @@ const App = () => {
                   setCrimeDes(e.target.value);
                 }}
                 multiline
-                rows={2}
-                maxRows={4}
+                // rows={2}
+                // maxRows={4}
               />
-            
-              
             </div>
 
             {/* number of suspects information */}
@@ -335,7 +351,6 @@ const App = () => {
               /> */}
 
               <TextField
-                
                 label="How Many Criminals Are There"
                 type="number"
                 id="numberOfSuspects"
@@ -348,7 +363,7 @@ const App = () => {
                   height: "50px",
                   fontSize: "20px",
                   marginTop: "-40px",
-                  backgroundColor:"white",
+                  backgroundColor: "white",
                 }}
               />
             </div>
@@ -363,13 +378,14 @@ const App = () => {
                 marginTop: "2rem",
               }}
             >
-              <p style={{color:"white"}}>Do you have info regarding the Suspect?</p>
+              <p style={{ color: "white" }}>
+                Do you have info regarding the Suspect?
+              </p>
               <br />
 
               <FormControl
                 style={{
                   marginTop: "-30px",
-                  
                 }}
               >
                 <RadioGroup
@@ -410,8 +426,7 @@ const App = () => {
                       width: "50rem",
                       height: "50px",
                       fontSize: "20px",
-                      backgroundColor:"white",
-                
+                      backgroundColor: "white",
                     }}
                     value={suspectName}
                     onChange={(e) => {
@@ -484,7 +499,9 @@ const App = () => {
                 marginTop: "2rem",
               }}
             >
-              <p style={{color:"white"}}>Is There any vehicle involved in crime?</p>
+              <p style={{ color: "white" }}>
+                Is There any vehicle involved in crime?
+              </p>
               <input
                 type="radio"
                 name="vehicle"
@@ -505,14 +522,11 @@ const App = () => {
                 <>
                   <div
                     id="hre"
-                    style={
-                      {
-                        // marginRight:"auto",
-                        // marginLeft:"auto"
-                        background: "white",
-                        
-                      }
-                    }
+                    style={{
+                      // marginRight:"auto",
+                      // marginLeft:"auto"
+                      background: "white",
+                    }}
                   >
                     <p>What is the type of vehicle?</p>
 
@@ -613,7 +627,7 @@ const App = () => {
                 marginTop: "0.8rem",
               }}
             >
-              <p style={{color:"white"}}>Victim Known?</p>
+              <p style={{ color: "white" }}>Victim Known?</p>
               <input
                 type="radio"
                 name="victim"

@@ -195,7 +195,7 @@ export default function DisplayMyTip({ currTip }) {
           </Card>
         </TabPanel>
         <TabPanel value="2">
-        {isMediaPresent ? (
+          {isMediaPresent ? (
             <Grid container justifyContent="center">
               {currTip.fileNames.map((fileName, index) => {
                 return (
@@ -279,7 +279,12 @@ export default function DisplayMyTip({ currTip }) {
         </TabPanel>
 
         <TabPanel value="5">
-          <Map />
+          <Map
+            stateName={currTip.location[0]}
+            cityName={currTip.location[1]}
+            lat={currTip.location[2]}
+            lng={currTip.location[3]}
+          />
         </TabPanel>
       </TabContext>
     </Box>

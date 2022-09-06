@@ -134,6 +134,11 @@ contract CrimeReport{
         uint16 pondicherryCases;
         uint16 uttarPradeshCases;
     }
+
+    // mapping(string=>mapping(address=>uint8)) countTipsPerDay;
+    mapping(address=>mapping(string=>uint8)) public countTipsPerDay;
+
+
     StateCases stateCases;
     // active cases counter 
     uint16 totalActiveCases;
@@ -164,7 +169,6 @@ contract CrimeReport{
                          string memory _date
                         ) external returns(bool){
 
-                        if(!countTipsOfUsers(_date)) return false; 
 
          Crime memory crime;     
          crime.crimeId = crimes.length;   
@@ -224,6 +228,7 @@ contract CrimeReport{
 	    }
 
     totalActiveCases++;
+    countTipsPerDay[msg.sender][_date] = countTipsPerDay[msg.sender][_date] + 1;
 
         return true;
     }
@@ -327,16 +332,15 @@ contract CrimeReport{
         return compare(_a, _b) == 0;
     }
 
-    mapping(string=>mapping(address=>uint8)) countTipsPerDay;
 
-    function countTipsOfUsers(string memory _date)public returns(bool){
-        if(countTipsPerDay[_date][msg.sender] >=3) return false;
-
-        countTipsPerDay[_date][msg.sender]++;
-
-        return true;
+    function checkTipsCountOfUser(string memory _date)public view returns(bool){
+        if(countTipsPerDay[msg.sender][_date] >=3){
+            return false;
+        }else{
+            return true;
+        }
     }
-
+    
 }
 
 
