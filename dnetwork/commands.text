@@ -1,0 +1,5 @@
+"npm install truffle -g" ->(install truffle globally)
+"truffle dashboard" -> (open the dashboard) (keep open dashboard using separate cmd prompt and then deploy contract using another cmd prompt)
+"truffle compile" ->(to compile the smart contract)
+"truffle migrate --network dashboard" ->(to deploy the smart contract)
+
