@@ -47,3 +47,14 @@ replace the CrimeReport.json file of frontend with the CrimeReport.json file of 
 
 
 
+### Project IMP Commands
+
+npm install truffle -g
+truffle dashboard
+truffle migrate --network dashboard
+truffle compile (to compile the smart contract)
+
+
+
+
+
